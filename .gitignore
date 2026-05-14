@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+# Android
+*.apk
+*.aab
+*.iml
+.gradle/
+build/
+local.properties
+
+# Datos y modelos (no versionar)
+datasets/
+runs/
+*.pt
+*.onnx
+
+# Entorno
+.env
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
