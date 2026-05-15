@@ -1,0 +1,36 @@
+# Render Blueprint — MaduraApp
+# Documentacion: https://render.com/docs/blueprint-spec
+#
+# Uso:
+#   1. Conectar este repo en render.com -> New -> Blueprint
+#   2. Render detecta este archivo y crea el servicio automaticamente
+#   3. Configurar DB_URL en el dashboard con la URL de Supabase
+
+services:
+  - type: web
+    name: maduraapp-backend
+    env: docker
+    dockerfilePath: ./Producto/backend/Dockerfile
+    dockerContext: ./Producto/backend
+    plan: free
+    region: oregon
+    branch: main
+    healthCheckPath: /v1/health
+
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+
+      # DB_URL: obtener de Supabase -> Connect -> Direct -> Session pooler -> URI
+      # Cambiar prefijo postgresql:// por postgresql+asyncpg://
+      - key: DB_URL
+        sync: false
+
+      - key: AUTH_SECRET_KEY
+        generateValue: true
+
+      - key: YOLO_MODEL_PATH
+        value: weights/yolo26n_maduraapp.pt
+
+      - key: CONFIDENCE_THRESHOLD
+        value: "0.65"
