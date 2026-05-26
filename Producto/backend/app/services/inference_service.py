@@ -1,3 +1,4 @@
+import gc
 import io
 
 import numpy as np
@@ -57,9 +58,11 @@ class InferenceService:
             return False
 
     def preprocess(self, image_bytes: bytes) -> np.ndarray:
-        img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-        img = img.resize((640, 640), Image.LANCZOS)
-        return np.array(img)
+        # Abrir, reducir a 640x640 y liberar inmediatamente el objeto PIL
+        # para minimizar el pico de RAM durante inferencia en free tier
+        with Image.open(io.BytesIO(image_bytes)) as img:
+            img = img.convert("RGB").resize((640, 640), Image.LANCZOS)
+            return np.array(img)
 
     def postprocess(self, results: list) -> ScanResult | None:
         best_box = None
@@ -95,4 +98,8 @@ class InferenceService:
     def run(self, image_bytes: bytes, model) -> ScanResult | None:
         image_array = self.preprocess(image_bytes)
         results = model.predict(image_array)
-        return self.postprocess(results)
+        scan_result = self.postprocess(results)
+        # Liberar tensores de PyTorch y memoria después de inferencia
+        del results, image_array
+        gc.collect()
+        return scan_result
