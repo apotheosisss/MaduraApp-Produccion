@@ -1,29 +1,28 @@
 name: Keep Backend Alive
 
-# Hace ping al backend de Render cada 10 minutos para evitar que
-# el free tier entre en modo sleep (que causa cold starts de ~60s).
-#
-# Requiere configurar en GitHub -> Settings -> Secrets -> Actions:
-#   RENDER_URL = https://maduraapp-backend.onrender.com  (sin barra final)
-
 on:
   schedule:
-    - cron: '*/10 * * * *'   # cada 10 minutos, las 24h
-  workflow_dispatch:          # permite ejecutar manualmente desde la UI
+    - cron: '*/14 * * * *'   # cada 14 minutos (Render duerme a los 15)
+  workflow_dispatch:
 
 jobs:
   ping:
     name: Ping health endpoint
     runs-on: ubuntu-latest
+    continue-on-error: true   # no enviar notificaciones de fallo
     steps:
       - name: Ping /v1/health
         run: |
+          if [ -z "${{ secrets.RENDER_URL }}" ]; then
+            echo "RENDER_URL secret no configurado — omitiendo ping"
+            exit 0
+          fi
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
             "${{ secrets.RENDER_URL }}/v1/health" \
-            --max-time 30)
+            --max-time 30 || echo "000")
           echo "HTTP status: $RESPONSE"
-          if [ "$RESPONSE" != "200" ]; then
-            echo "Backend no responde correctamente (status $RESPONSE)"
-            exit 1
+          if [ "$RESPONSE" = "200" ]; then
+            echo "Backend activo"
+          else
+            echo "Backend no responde (status $RESPONSE)"
           fi
-          echo "Backend activo"
