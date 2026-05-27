@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.MultipartBody.Companion.FORM
 
 /**
  * Capa de repositorio: encapsula el acceso a la API y al cache local Room.
@@ -30,6 +31,7 @@ class FruitRepository(
 
     suspend fun predict(
         imageBytes: ByteArray,
+        fruitType: String? = null,
         bearerToken: String? = null,
     ): Result<PredictResponseDto> = runCatching {
         val mediaType = "image/jpeg".toMediaTypeOrNull()
@@ -39,7 +41,15 @@ class FruitRepository(
             filename = "scan.jpg",
             body = requestBody,
         )
-        val response = api.predict(part, bearerToken?.let { "Bearer $it" })
+        // fruit_type como campo form opcional — el backend lo usa para filtrar
+        // predicciones a las 3 clases de esa fruta (mejor precisión)
+        val fruitTypeBody = fruitType?.toRequestBody(FORM)
+
+        val response = api.predict(
+            file = part,
+            fruitType = fruitTypeBody,
+            bearerToken = bearerToken?.let { "Bearer $it" },
+        )
 
         // Cachear localmente solo si hubo detección
         response.data?.let { local.cache(it) }

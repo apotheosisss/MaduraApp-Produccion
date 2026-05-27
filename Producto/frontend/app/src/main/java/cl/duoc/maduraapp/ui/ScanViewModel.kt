@@ -11,11 +11,12 @@ import kotlinx.coroutines.launch
  * ViewModel del flujo principal de escaneo.
  *
  * Responsabilidades:
- *  - Disparar la inferencia contra el backend cuando llegan bytes desde CameraX.
+ *  - Disparar la inferencia contra el backend cuando llegan bytes desde CameraX
+ *    o desde la galería.
+ *  - Pasar el `fruitType` seleccionado al backend para filtrar predicciones
+ *    a esa fruta (mejora precisión vs el modo libre).
  *  - Exponer un único [LiveData] de [ScanState] para que la Activity actualice
  *    el semáforo de madurez sin lógica de negocio.
- *
- * No persiste imágenes localmente (los `.jpg` se descartan tras enviarse).
  */
 class ScanViewModel(
     private val repository: FruitRepository = FruitRepository(),
@@ -23,6 +24,12 @@ class ScanViewModel(
 
     private val _state = MutableLiveData<ScanState>(ScanState.Idle)
     val state: LiveData<ScanState> = _state
+
+    /**
+     * Fruta seleccionada en la pantalla inicial (FruitSelectorActivity).
+     * Si es null, el backend predice entre las 12 clases libres.
+     */
+    var fruitType: String? = null
 
     /** Reinicia la UI tras un escaneo (botón "Volver a escanear"). */
     fun reset() {
@@ -34,7 +41,11 @@ class ScanViewModel(
         _state.value = ScanState.Loading
 
         viewModelScope.launch {
-            repository.predict(imageBytes, bearerToken)
+            repository.predict(
+                imageBytes = imageBytes,
+                fruitType = fruitType,
+                bearerToken = bearerToken,
+            )
                 .onSuccess { response ->
                     _state.value = when {
                         response.success && response.data != null ->
