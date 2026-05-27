@@ -93,6 +93,9 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+    // DataStore — persistencia del token JWT
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
     // Retrofit + OkHttp + Kotlinx Serialization
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")

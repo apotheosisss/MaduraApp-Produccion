@@ -15,8 +15,27 @@ MOCK_SCAN = ScanResult(
 )
 
 
-async def test_history_empty(client: AsyncClient):
-    r = await client.get("/v1/history", headers={"Authorization": "Bearer no_scans_token"})
+async def test_history_requires_auth(client: AsyncClient):
+    """Sin token se debe rechazar con 403."""
+    r = await client.get("/v1/history")
+    assert r.status_code == 403
+
+
+async def test_history_empty_for_new_user(client: AsyncClient):
+    """Un usuario recién registrado tiene historial vacío."""
+    # Registrar usuario único para este test
+    resp = await client.post(
+        "/v1/auth/register",
+        json={
+            "username": "historyuser",
+            "email": "history@maduraapp.cl",
+            "password": "password123",
+        },
+    )
+    token = resp.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    r = await client.get("/v1/history", headers=headers)
     assert r.status_code == 200
     data = r.json()
     assert data["items"] == []
@@ -25,28 +44,28 @@ async def test_history_empty(client: AsyncClient):
     assert data["offset"] == 0
 
 
-async def test_history_after_predict(client: AsyncClient):
-    token = "Bearer history_test_token"
-
+async def test_history_after_predict(client: AsyncClient, auth_headers: dict):
+    """El historial incluye los escaneos del usuario autenticado."""
     with patch("app.routers.predict.inference_svc.run", return_value=MOCK_SCAN):
         await client.post(
             "/v1/predict",
             files={"file": ("banana.jpg", make_jpeg_bytes((200, 230, 100)), "image/jpeg")},
-            headers={"Authorization": token},
+            headers=auth_headers,
         )
 
-    r = await client.get("/v1/history", headers={"Authorization": token})
+    r = await client.get("/v1/history", headers=auth_headers)
     assert r.status_code == 200
     data = r.json()
     assert data["total"] >= 1
-    assert len(data["items"]) >= 1
-    item = data["items"][0]
-    assert item["fruit_type"] == "platano"
-    assert item["maturity_label"] == "INMADURO"
+    items = data["items"]
+    assert len(items) >= 1
+    assert items[0]["fruit_type"] == "platano"
+    assert items[0]["maturity_label"] == "INMADURO"
+    assert items[0]["scan_id"] is not None
 
 
-async def test_history_pagination(client: AsyncClient):
-    r = await client.get("/v1/history?limit=5&offset=0")
+async def test_history_pagination(client: AsyncClient, auth_headers: dict):
+    r = await client.get("/v1/history?limit=5&offset=0", headers=auth_headers)
     assert r.status_code == 200
     data = r.json()
     assert data["limit"] == 5
@@ -54,6 +73,53 @@ async def test_history_pagination(client: AsyncClient):
     assert len(data["items"]) <= 5
 
 
-async def test_history_limit_validation(client: AsyncClient):
-    r = await client.get("/v1/history?limit=200")
+async def test_history_limit_validation(client: AsyncClient, auth_headers: dict):
+    r = await client.get("/v1/history?limit=200", headers=auth_headers)
+    assert r.status_code == 422
+
+
+async def test_auth_register_duplicate(client: AsyncClient):
+    """No se puede registrar dos veces el mismo email."""
+    body = {"username": "dupuser", "email": "dup@maduraapp.cl", "password": "pass123"}
+    await client.post("/v1/auth/register", json=body)
+    r = await client.post("/v1/auth/register", json=body)
+    assert r.status_code == 409
+
+
+async def test_auth_login_wrong_password(client: AsyncClient):
+    body = {"email": "test@maduraapp.cl", "password": "wrongpassword"}
+    r = await client.post("/v1/auth/login", json=body)
+    assert r.status_code == 401
+
+
+async def test_feedback_submit(client: AsyncClient, auth_headers: dict):
+    """Envío de feedback (rating) para un escaneo existente."""
+    # Crear un escaneo primero
+    with patch("app.routers.predict.inference_svc.run", return_value=MOCK_SCAN):
+        predict_resp = await client.post(
+            "/v1/predict",
+            files={"file": ("banana.jpg", make_jpeg_bytes(), "image/jpeg")},
+            headers=auth_headers,
+        )
+    scan_id = predict_resp.json()["data"]["scan_id"]
+
+    # Enviar feedback
+    r = await client.post(
+        "/v1/feedback",
+        json={"scan_id": scan_id, "rating": 4},
+        headers=auth_headers,
+    )
+    assert r.status_code == 201
+    data = r.json()
+    assert data["success"] is True
+    assert data["feedback_id"] > 0
+
+
+async def test_feedback_invalid_rating(client: AsyncClient, auth_headers: dict):
+    """Rating fuera de rango debe ser rechazado."""
+    r = await client.post(
+        "/v1/feedback",
+        json={"scan_id": "fake-id", "rating": 6},
+        headers=auth_headers,
+    )
     assert r.status_code == 422

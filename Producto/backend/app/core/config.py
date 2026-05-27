@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     CONFIDENCE_THRESHOLD: float = 0.55
     DB_URL: str = "sqlite+aiosqlite:///./maduraapp_dev.db"
     AUTH_SECRET_KEY: str = "dev_secret_key"
+    JWT_SECRET_KEY: str = "dev_jwt_secret_change_in_production"
+    JWT_EXPIRE_DAYS: int = 30
     ENVIRONMENT: str = "development"
 
 

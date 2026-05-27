@@ -16,11 +16,12 @@ import okhttp3.MultipartBody.Companion.FORM
 /**
  * Capa de repositorio: encapsula el acceso a la API y al cache local Room.
  *
+ * El token JWT se agrega automáticamente via [AuthInterceptor] — no es
+ * necesario pasarlo explícitamente en ningún método.
+ *
  * Estrategia:
- *  - El backend es la **fuente de verdad** del historial.
- *  - Tras una predicción exitosa, el resultado se cachea en Room para que la
- *    pantalla de historial pueda mostrarlo aún sin conexión.
- *  - El refresh remoto del historial reemplaza el cache local.
+ *  - El backend es la fuente de verdad del historial.
+ *  - Tras una predicción exitosa el resultado se cachea en Room para historial offline.
  */
 class FruitRepository(
     private val api: MaduraApiService = ApiClient.service,
@@ -32,7 +33,6 @@ class FruitRepository(
     suspend fun predict(
         imageBytes: ByteArray,
         fruitType: String? = null,
-        bearerToken: String? = null,
     ): Result<PredictResponseDto> = runCatching {
         val mediaType = "image/jpeg".toMediaTypeOrNull()
         val requestBody = imageBytes.toRequestBody(mediaType)
@@ -41,15 +41,9 @@ class FruitRepository(
             filename = "scan.jpg",
             body = requestBody,
         )
-        // fruit_type como campo form opcional — el backend lo usa para filtrar
-        // predicciones a las 3 clases de esa fruta (mejor precisión)
         val fruitTypeBody = fruitType?.toRequestBody(FORM)
 
-        val response = api.predict(
-            file = part,
-            fruitType = fruitTypeBody,
-            bearerToken = bearerToken?.let { "Bearer $it" },
-        )
+        val response = api.predict(part, fruitTypeBody)
 
         // Cachear localmente solo si hubo detección
         response.data?.let { local.cache(it) }
@@ -59,17 +53,11 @@ class FruitRepository(
 
     // ----------------------------------------------------------------- History
 
-    /**
-     * Refresca el historial desde el backend. Si tiene éxito, sustituye el
-     * cache local. Si falla, devuelve el error sin tocar la cache (la UI
-     * sigue mostrando lo último conocido vía [observeLocalHistory]).
-     */
     suspend fun refreshHistory(
         limit: Int = 50,
         offset: Int = 0,
-        bearerToken: String? = null,
     ): Result<HistoryResponseDto> = runCatching {
-        val response = api.history(limit, offset, bearerToken?.let { "Bearer $it" })
+        val response = api.history(limit, offset)
 
         if (offset == 0) {
             local.clear()
@@ -79,7 +67,7 @@ class FruitRepository(
         response
     }
 
-    /** Stream reactivo del cache local — la UI se actualiza al insertar nuevos. */
+    /** Stream reactivo del cache local. */
     fun observeLocalHistory(limit: Int = 50): Flow<List<ScanResultDto>> =
         local.observeRecent(limit)
 

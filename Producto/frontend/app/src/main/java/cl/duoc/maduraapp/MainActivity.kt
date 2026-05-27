@@ -28,6 +28,7 @@ import cl.duoc.maduraapp.databinding.ActivityMainBinding
 import cl.duoc.maduraapp.ui.ScanState
 import cl.duoc.maduraapp.ui.ScanViewModel
 import cl.duoc.maduraapp.ui.history.HistoryActivity
+import cl.duoc.maduraapp.ui.feedback.RatingBottomSheet
 import cl.duoc.maduraapp.ui.selector.FruitSelectorActivity
 import java.io.ByteArrayOutputStream
 import java.util.concurrent.ExecutorService
@@ -241,6 +242,16 @@ class MainActivity : AppCompatActivity() {
         resultPanel.visibility = View.VISIBLE
         actionButtons.visibility = View.GONE
         btnRetry.visibility = View.VISIBLE
+
+        // Mostrar la encuesta de rating ~1.5s después del resultado
+        result.scanId?.let { scanId ->
+            binding.root.postDelayed({
+                if (!isFinishing && !isDestroyed) {
+                    RatingBottomSheet.newInstance(scanId)
+                        .show(supportFragmentManager, RatingBottomSheet.TAG)
+                }
+            }, 1500L)
+        }
 
         val colorRes = when (result.colorCode) {
             "green" -> R.color.ripeness_green
