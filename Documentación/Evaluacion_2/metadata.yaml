@@ -1,0 +1,15 @@
+---
+title: "Informe Técnico — Estado de Avance 2"
+subtitle: "MaduraApp: Sistema de Análisis de Madurez Agrícola mediante Visión Computacional"
+author:
+  - "[Nombre Integrante 1] · RUT: XX.XXX.XXX-X"
+  - "[Nombre Integrante 2] · RUT: XX.XXX.XXX-X"
+  - "[Nombre Integrante 3] · RUT: XX.XXX.XXX-X"
+date: "Mayo 2026"
+subject: "Taller Aplicado de Programación (TPY1101)"
+keywords: [MaduraApp, YOLO, FastAPI, Android, visión computacional, madurez agrícola]
+lang: es
+toc: true
+toc-depth: 2
+numbersections: true
+---
