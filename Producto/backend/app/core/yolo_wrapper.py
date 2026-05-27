@@ -20,6 +20,5 @@ class YOLO26Wrapper:
         dummy = np.zeros((640, 640, 3), dtype=np.uint8)
         self.model.predict(dummy, verbose=False)
 
-    def predict(self, image) -> list:
-        results = self.model.predict(image, imgsz=640, verbose=False)
-        return results
+    def predict(self, image, augment: bool = False) -> list:
+        return self.model.predict(image, imgsz=640, verbose=False, augment=augment)

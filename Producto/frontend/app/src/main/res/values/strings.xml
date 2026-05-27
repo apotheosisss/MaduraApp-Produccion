@@ -2,11 +2,18 @@
 <resources>
     <string name="app_name">MaduraApp</string>
 
+    <!-- Selector de fruta (pantalla inicial) -->
+    <string name="title_selector">¿Qué fruta vas a escanear?</string>
+    <string name="subtitle_selector">Elige el tipo de fruta para mejorar la precisión</string>
+
     <!-- UI principal -->
     <string name="title_main">Análisis de madurez</string>
+    <string name="title_main_with_fruit">Escaneando %1$s</string>
+    <string name="btn_change_fruit">Cambiar fruta</string>
     <string name="title_history">Historial</string>
     <string name="lbl_history_empty">Aún no hay escaneos registrados.\n\nEscanea una fruta para comenzar tu historial.</string>
-    <string name="btn_scan">Escanear fruta</string>
+    <string name="btn_scan">📷 Escanear fruta</string>
+    <string name="btn_gallery">🖼 Seleccionar de galería</string>
     <string name="btn_retry">Volver a escanear</string>
     <string name="lbl_loading">Analizando…</string>
     <string name="lbl_no_detection">No se detectó ninguna fruta soportada</string>
@@ -20,7 +27,8 @@
     <!-- Frutas -->
     <string name="fruit_aguacate_hass">Aguacate Hass</string>
     <string name="fruit_platano">Plátano</string>
-    <string name="fruit_tomate_usda">Tomate</string>
+    <string name="fruit_tomate_usda">Tomate Cherry</string>
+    <string name="tomate_hint">Variedad cherry o pera</string>
     <string name="fruit_mango">Mango</string>
 
     <!-- Estados de madurez -->

@@ -26,8 +26,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="29">
 
+        <!-- Pantalla inicial: selector de fruta -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.selector.FruitSelectorActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,6 +36,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.selector.FruitSelectorActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.history.HistoryActivity"
