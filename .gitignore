@@ -29,3 +29,5 @@ Thumbs.db
 
 # Excepcion: modelo de produccion necesario para Render
 !Producto/backend/weights/yolo26n_maduraapp.pt
+
+CLAUDE.md
