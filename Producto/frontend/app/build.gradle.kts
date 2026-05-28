@@ -93,6 +93,9 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+    // GridLayout (FruitSelectorActivity — grid 2x2 de frutas)
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
+
     // Retrofit + OkHttp + Kotlinx Serialization
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
