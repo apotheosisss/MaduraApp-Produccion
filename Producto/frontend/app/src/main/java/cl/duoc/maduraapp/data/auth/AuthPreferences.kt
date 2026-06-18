@@ -1,33 +1,46 @@
 package cl.duoc.maduraapp.data.auth
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-/** DataStore para persistir la sesión entre cierres de app. */
-private val Context.authDataStore: DataStore<Preferences> by preferencesDataStore(name = "auth_prefs")
+/**
+ * Persistencia **cifrada** de la sesión JWT entre cierres de la app.
+ *
+ * Usa [EncryptedSharedPreferences] (AES-256): tanto las claves como los valores
+ * se cifran con una clave maestra resguardada en el Android Keystore. El token
+ * y los datos de sesión quedan ilegibles en reposo aunque alguien extraiga el
+ * archivo del dispositivo (OWASP M9 / A02 — protección de datos en reposo).
+ *
+ * La API pública (suspend) se mantiene idéntica a la versión anterior basada en
+ * DataStore, por lo que los consumidores no requieren cambios.
+ */
+class AuthPreferences(context: Context) {
 
-class AuthPreferences(private val context: Context) {
-
-    private object Keys {
-        val TOKEN    = stringPreferencesKey("jwt_token")
-        val USER_ID  = stringPreferencesKey("user_id")
-        val USERNAME = stringPreferencesKey("username")
+    private val prefs: SharedPreferences by lazy {
+        val appContext = context.applicationContext
+        val masterKey = MasterKey.Builder(appContext)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+        EncryptedSharedPreferences.create(
+            appContext,
+            PREFS_NAME,
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
+        )
     }
 
     /** Carga la sesión guardada y la pone en [TokenManager]. True si había sesión. */
-    suspend fun loadSession(): Boolean {
-        val prefs = context.authDataStore.data.first()
-        val token    = prefs[Keys.TOKEN]
-        val userId   = prefs[Keys.USER_ID]
-        val username = prefs[Keys.USERNAME]
+    suspend fun loadSession(): Boolean = withContext(Dispatchers.IO) {
+        val token = prefs.getString(KEY_TOKEN, null)
+        val userId = prefs.getString(KEY_USER_ID, null)
+        val username = prefs.getString(KEY_USERNAME, null)
 
-        return if (token != null && userId != null && username != null) {
+        if (token != null && userId != null && username != null) {
             TokenManager.saveSession(token, userId, username)
             true
         } else {
@@ -36,16 +49,27 @@ class AuthPreferences(private val context: Context) {
     }
 
     suspend fun saveSession(token: String, userId: String, username: String) {
-        context.authDataStore.edit { prefs ->
-            prefs[Keys.TOKEN]    = token
-            prefs[Keys.USER_ID]  = userId
-            prefs[Keys.USERNAME] = username
+        withContext(Dispatchers.IO) {
+            prefs.edit()
+                .putString(KEY_TOKEN, token)
+                .putString(KEY_USER_ID, userId)
+                .putString(KEY_USERNAME, username)
+                .apply()
         }
         TokenManager.saveSession(token, userId, username)
     }
 
     suspend fun clearSession() {
-        context.authDataStore.edit { it.clear() }
+        withContext(Dispatchers.IO) {
+            prefs.edit().clear().apply()
+        }
         TokenManager.clearSession()
+    }
+
+    private companion object {
+        const val PREFS_NAME = "auth_prefs_secure"
+        const val KEY_TOKEN = "jwt_token"
+        const val KEY_USER_ID = "user_id"
+        const val KEY_USERNAME = "username"
     }
 }

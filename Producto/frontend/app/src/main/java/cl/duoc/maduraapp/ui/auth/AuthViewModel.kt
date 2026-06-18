@@ -41,8 +41,10 @@ class AuthViewModel(
                 _state.value = AuthState.Error("Completa todos los campos.")
             password != confirmPassword ->
                 _state.value = AuthState.Error("Las contraseñas no coinciden.")
-            password.length < 6 ->
-                _state.value = AuthState.Error("La contraseña debe tener al menos 6 caracteres.")
+            password.length < 8 ->
+                _state.value = AuthState.Error("La contraseña debe tener al menos 8 caracteres.")
+            !password.any { it.isLetter() } || !password.any { it.isDigit() } ->
+                _state.value = AuthState.Error("La contraseña debe incluir letras y números.")
             else -> {
                 _state.value = AuthState.Loading
                 viewModelScope.launch {

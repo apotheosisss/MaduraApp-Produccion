@@ -23,7 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaduraApp"
-        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="29">
 
         <!-- Pantalla de login (LAUNCHER) — redirige al selector si hay sesión activa -->

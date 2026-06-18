@@ -52,6 +52,11 @@
     <string name="hint_password">Contraseña</string>
     <string name="hint_username">Nombre de usuario</string>
     <string name="hint_confirm_password">Confirmar contraseña</string>
+    <string name="password_helper">Mínimo 8 caracteres, con letras y números</string>
+
+    <!-- Indicador de seguridad (cifrado en tránsito + reposo) -->
+    <string name="security_badge">Tus datos viajan cifrados (HTTPS) y tu contraseña se guarda protegida</string>
+    <string name="cd_security_lock">Conexión cifrada</string>
 
     <!-- Feedback / Rating -->
     <string name="rating_title">¿Qué tan preciso fue el diagnóstico?</string>
