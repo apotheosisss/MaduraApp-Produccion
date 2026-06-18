@@ -96,6 +96,9 @@ dependencies {
     // DataStore — persistencia del token JWT
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
+    // GridLayout (FruitSelectorActivity — grid 2x2 de frutas)
+    implementation("androidx.gridlayout:gridlayout:1.0.0")
+
     // Retrofit + OkHttp + Kotlinx Serialization
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")

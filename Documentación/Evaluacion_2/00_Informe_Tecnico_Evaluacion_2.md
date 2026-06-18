@@ -2,10 +2,9 @@
 ## Proyecto MaduraApp
 
 **Asignatura:** Taller Aplicado de Programación (TPY1101)
-**Sección:** [a completar]
-**Grupo:** [N° de grupo]
-**Integrantes:** [Nombre y RUT de cada integrante]
-**Docente:** [Nombre del docente guía]
+**Sección:** 001D
+**Integrantes:** Claudio Vicente Aro Kath
+**Docente:** José Ignacio Campos Árevalo
 **Fecha de entrega:** Semana 11 — 2026
 
 ---
