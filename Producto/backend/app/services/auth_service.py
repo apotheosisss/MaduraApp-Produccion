@@ -1,6 +1,6 @@
 """Servicio de autenticación: registro, login y verificación de tokens JWT."""
 import uuid
-from datetime import datetime
+from datetime import UTC, datetime
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -48,7 +48,7 @@ class AuthService:
             username=data.username,
             email=data.email,
             hashed_password=hash_password(data.password),
-            created_at=datetime.utcnow(),
+            created_at=datetime.now(UTC),
         )
         session.add(user)
         await session.commit()

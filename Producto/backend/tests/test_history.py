@@ -80,10 +80,19 @@ async def test_history_limit_validation(client: AsyncClient, auth_headers: dict)
 
 async def test_auth_register_duplicate(client: AsyncClient):
     """No se puede registrar dos veces el mismo email."""
-    body = {"username": "dupuser", "email": "dup@maduraapp.cl", "password": "pass123"}
+    body = {"username": "dupuser", "email": "dup@maduraapp.cl", "password": "duppass123"}
     await client.post("/v1/auth/register", json=body)
     r = await client.post("/v1/auth/register", json=body)
     assert r.status_code == 409
+
+
+async def test_auth_register_weak_password(client: AsyncClient):
+    """Contraseña corta o sin número se rechaza (OWASP A07)."""
+    corta = {"username": "weak1", "email": "weak1@maduraapp.cl", "password": "ab1"}
+    assert (await client.post("/v1/auth/register", json=corta)).status_code == 422
+
+    sin_numero = {"username": "weak2", "email": "weak2@maduraapp.cl", "password": "onlyletters"}
+    assert (await client.post("/v1/auth/register", json=sin_numero)).status_code == 422
 
 
 async def test_auth_login_wrong_password(client: AsyncClient):
