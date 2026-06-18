@@ -1,6 +1,5 @@
 package cl.duoc.maduraapp.data.api
 
-import cl.duoc.maduraapp.data.dto.AuthRequestDto
 import cl.duoc.maduraapp.data.dto.AuthResponseDto
 import cl.duoc.maduraapp.data.dto.FeedbackRequestDto
 import cl.duoc.maduraapp.data.dto.FeedbackResponseDto
