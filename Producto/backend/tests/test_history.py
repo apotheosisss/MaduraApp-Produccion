@@ -16,9 +16,9 @@ MOCK_SCAN = ScanResult(
 
 
 async def test_history_requires_auth(client: AsyncClient):
-    """Sin token se debe rechazar con 403."""
+    """Sin token se debe rechazar con 401."""
     r = await client.get("/v1/history")
-    assert r.status_code == 403
+    assert r.status_code == 401
 
 
 async def test_history_empty_for_new_user(client: AsyncClient):

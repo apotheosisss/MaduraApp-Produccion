@@ -25,12 +25,12 @@ async def test_health(client: AsyncClient):
 
 
 async def test_predict_requires_auth(client: AsyncClient):
-    """Sin token se debe rechazar con 403."""
+    """Sin token se debe rechazar con 401."""
     r = await client.post(
         "/v1/predict",
         files={"file": ("img.jpg", make_jpeg_bytes(), "image/jpeg")},
     )
-    assert r.status_code == 403
+    assert r.status_code == 401
 
 
 async def test_predict_unsupported_format(client: AsyncClient, auth_headers: dict):
