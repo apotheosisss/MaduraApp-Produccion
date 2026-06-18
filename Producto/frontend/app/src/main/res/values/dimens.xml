@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ritmo de espaciado 4/8dp (Material Design) -->
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_sm">8dp</dimen>
+    <dimen name="space_md">16dp</dimen>
+    <dimen name="space_lg">24dp</dimen>
+    <dimen name="space_xl">32dp</dimen>
+
+    <!-- Radios de esquina -->
+    <dimen name="radius_sm">12dp</dimen>
+    <dimen name="radius_md">16dp</dimen>
+    <dimen name="radius_lg">28dp</dimen>
+
+    <!-- Elevación de tarjetas -->
+    <dimen name="elevation_card">1dp</dimen>
+    <dimen name="elevation_card_raised">3dp</dimen>
+
+    <!-- Indicadores de madurez -->
+    <dimen name="ripeness_dot">48dp</dimen>
+    <dimen name="ripeness_dot_sm">36dp</dimen>
+</resources>

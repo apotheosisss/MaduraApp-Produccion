@@ -108,10 +108,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text=""
-            android:textColor="#D32F2F"
-            android:textSize="13sp"
+            android:textColor="?attr/colorError"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
             android:visibility="gone"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/space_sm"
             app:layout_constraintTop_toBottomOf="@id/tilConfirmPassword"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -163,8 +163,8 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:text="@string/security_badge"
-                android:textColor="@color/md_theme_on_surface"
-                android:textSize="12sp" />
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textAppearance="?attr/textAppearanceLabelMedium" />
 
         </LinearLayout>
 

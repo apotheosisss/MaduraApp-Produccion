@@ -74,15 +74,14 @@
     </LinearLayout>
 
     <!-- Panel de resultado (semáforo + texto) -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/resultPanel"
+        style="@style/Widget.MaduraApp.Card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/md_theme_surface"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="6dp"
+        android:layout_margin="@dimen/space_md"
+        app:cardElevation="@dimen/elevation_card_raised"
         app:layout_constraintBottom_toTopOf="@id/actionButtons"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -91,15 +90,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
+            android:padding="@dimen/space_md"
             android:gravity="center_vertical">
 
             <View
                 android:id="@+id/ripenessIndicator"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/ripeness_dot"
+                android:layout_height="@dimen/ripeness_dot"
                 android:background="@drawable/ripeness_circle"
-                android:layout_marginEnd="16dp" />
+                android:layout_marginEnd="@dimen/space_md" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -111,35 +110,33 @@
                     android:id="@+id/txtFruit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/md_theme_on_surface"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorOnSurface"
                     tools:text="Aguacate Hass · Óptimo" />
 
                 <TextView
                     android:id="@+id/txtRecommendation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="13sp"
-                    android:textColor="@color/md_theme_on_surface"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     tools:text="Consumir hoy o refrigerar hasta 2 días" />
 
                 <TextView
                     android:id="@+id/txtConfidence"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="12sp"
-                    android:alpha="0.7"
-                    android:textColor="@color/md_theme_on_surface"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:textAppearance="?attr/textAppearanceLabelMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     tools:text="Confianza: 91.3%" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Botones de acción (escanear + galería) -->
     <LinearLayout
