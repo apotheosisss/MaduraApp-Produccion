@@ -22,6 +22,7 @@
 | 04 | [`04_Mejoras_Producto.md`](04_Mejoras_Producto.md) | 3 — Mejoras al producto (5 estándares) |
 | 05 | [`05_Evidencia_Control_Versiones.md`](05_Evidencia_Control_Versiones.md) | 4 — Evidencias / control de versiones |
 | 06 | [`06_Conclusion_Lecciones.md`](06_Conclusion_Lecciones.md) | 4 — Conclusión y lecciones |
+| 08 | [`08_Deploy_AWS_LearnerLab.md`](08_Deploy_AWS_LearnerLab.md) | Configuración de servidor de producción (AWS) |
 
 ---
 
