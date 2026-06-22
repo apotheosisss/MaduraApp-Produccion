@@ -14,9 +14,12 @@ import kotlinx.coroutines.launch
  *  - Disparar la inferencia contra el backend cuando llegan bytes desde CameraX
  *    o desde la galería.
  *  - Pasar el `fruitType` seleccionado al backend para filtrar predicciones
- *    a esa fruta (mejora precisión vs el modo libre).
+ *    a esa fruta (mejora precisión).
  *  - Exponer un único [LiveData] de [ScanState] para que la Activity actualice
  *    el semáforo de madurez sin lógica de negocio.
+ *
+ * El token JWT se agrega automáticamente vía [AuthInterceptor] — no se
+ * pasa explícitamente en ningún método.
  */
 class ScanViewModel(
     private val repository: FruitRepository = FruitRepository(),
@@ -26,31 +29,25 @@ class ScanViewModel(
     val state: LiveData<ScanState> = _state
 
     /**
-     * Fruta seleccionada en la pantalla inicial (FruitSelectorActivity).
+     * Fruta seleccionada en FruitSelectorActivity.
      * Si es null, el backend predice entre las 12 clases libres.
      */
     var fruitType: String? = null
 
-    /** Reinicia la UI tras un escaneo (botón "Volver a escanear"). */
-    fun reset() {
-        _state.value = ScanState.Idle
-    }
+    fun reset() { _state.value = ScanState.Idle }
 
-    /** Envía la imagen al backend y publica el resultado. */
-    fun submitImage(imageBytes: ByteArray, bearerToken: String? = null) {
+    fun submitImage(imageBytes: ByteArray) {
         _state.value = ScanState.Loading
 
         viewModelScope.launch {
             repository.predict(
                 imageBytes = imageBytes,
                 fruitType = fruitType,
-                bearerToken = bearerToken,
             )
                 .onSuccess { response ->
                     _state.value = when {
                         response.success && response.data != null ->
                             ScanState.Success(response.data)
-
                         else ->
                             ScanState.NoDetection(
                                 response.error ?: "No se detectó ninguna fruta soportada"

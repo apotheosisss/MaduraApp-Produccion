@@ -12,6 +12,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ScanResultDto(
+    @SerialName("scan_id") val scanId: String? = null,   // UUID del scan persistido (para feedback)
     @SerialName("fruit_type") val fruitType: String,
     @SerialName("maturity_label") val maturityLabel: String,
     val confidence: Double,

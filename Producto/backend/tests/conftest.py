@@ -1,5 +1,6 @@
 import io
 
+import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from PIL import Image
@@ -39,3 +40,26 @@ async def client():
 
     app.dependency_overrides.clear()
     await test_engine.dispose()
+
+
+@pytest_asyncio.fixture(scope="module")
+async def auth_headers(client: AsyncClient) -> dict:
+    """Registra un usuario de prueba y retorna las cabeceras de autenticación."""
+    resp = await client.post(
+        "/v1/auth/register",
+        json={
+            "username": "testuser",
+            "email": "test@maduraapp.cl",
+            "password": "testpassword123",
+        },
+    )
+    # Si el usuario ya existe (otro test lo creó) intentamos login
+    if resp.status_code == 409:
+        resp = await client.post(
+            "/v1/auth/login",
+            json={"email": "test@maduraapp.cl", "password": "testpassword123"},
+        )
+
+    assert resp.status_code in (200, 201), f"Auth falló: {resp.text}"
+    token = resp.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}

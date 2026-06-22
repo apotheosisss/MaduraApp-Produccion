@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class ScanResult(BaseModel):
+    scan_id: Optional[str] = None   # UUID del scan persistido (None si aún no se guardó)
     fruit_type: str
     maturity_label: str  # INMADURO | OPTIMO | SOBRE_MADURO
     confidence: float

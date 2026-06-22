@@ -36,11 +36,11 @@ class HistoryViewModel(
         refresh()
     }
 
-    fun refresh(bearerToken: String? = null) {
+    fun refresh() {
         _state.value = HistoryState.Loading
 
         viewModelScope.launch {
-            repository.refreshHistory(limit = MAX_ITEMS, bearerToken = bearerToken)
+            repository.refreshHistory(limit = MAX_ITEMS)
                 .onSuccess { response ->
                     _state.value = HistoryState.Loaded(response.items)
                 }

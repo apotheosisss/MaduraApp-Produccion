@@ -5,18 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_background"
+    android:background="?android:attr/colorBackground"
     tools:context=".ui.history.HistoryActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_primary"
+        android:background="?attr/colorPrimary"
         app:title="@string/title_history"
-        app:titleTextColor="@color/white"
+        app:titleTextColor="?attr/colorOnPrimary"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:navigationIconTint="@color/white"
+        app:navigationIconTint="?attr/colorOnPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -48,20 +48,28 @@
         android:orientation="vertical"
         android:gravity="center"
         android:visibility="gone"
-        android:padding="32dp"
+        android:padding="@dimen/space_xl"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_history"
+            android:alpha="0.4"
+            app:tint="?attr/colorOnSurfaceVariant"
+            android:layout_marginBottom="@dimen/space_md"
+            android:contentDescription="@null" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lbl_history_empty"
-            android:textSize="16sp"
-            android:textColor="@color/md_theme_on_surface"
-            android:gravity="center"
-            android:alpha="0.7" />
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:gravity="center" />
 
     </LinearLayout>
 

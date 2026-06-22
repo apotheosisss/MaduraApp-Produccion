@@ -93,6 +93,12 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+    // DataStore — persistencia del token JWT
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+    // Security Crypto — almacenamiento cifrado del token JWT en reposo (AES-256)
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+
     // GridLayout (FruitSelectorActivity — grid 2x2 de frutas)
     implementation("androidx.gridlayout:gridlayout:1.0.0")
 

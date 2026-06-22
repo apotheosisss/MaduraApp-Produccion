@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Material 3 base -->
+    <!-- ════════════════ Material 3 — Esquema CLARO ════════════════ -->
+    <!-- Marca: verde agrícola -->
     <color name="md_theme_primary">#2E7D32</color>
     <color name="md_theme_on_primary">#FFFFFF</color>
-    <color name="md_theme_primary_container">#A5D6A7</color>
-    <color name="md_theme_secondary">#FFA000</color>
-    <color name="md_theme_background">#FAFAFA</color>
-    <color name="md_theme_surface">#FFFFFF</color>
-    <color name="md_theme_on_surface">#1B1B1B</color>
+    <color name="md_theme_primary_container">#B7E4B9</color>
+    <color name="md_theme_on_primary_container">#0A2E12</color>
 
-    <!-- Semáforo de madurez -->
+    <!-- Secundario: ámbar cosecha -->
+    <color name="md_theme_secondary">#9A6700</color>
+    <color name="md_theme_on_secondary">#FFFFFF</color>
+    <color name="md_theme_secondary_container">#FFE0A3</color>
+    <color name="md_theme_on_secondary_container">#301D00</color>
+
+    <!-- Superficies y fondo -->
+    <color name="md_theme_background">#F7FAF6</color>
+    <color name="md_theme_on_background">#1A1C19</color>
+    <color name="md_theme_surface">#FFFFFF</color>
+    <color name="md_theme_on_surface">#1A1C19</color>
+    <color name="md_theme_surface_variant">#DDE5DA</color>
+    <color name="md_theme_on_surface_variant">#424940</color>
+    <color name="md_theme_surface_container">#F0F4EE</color>
+
+    <!-- Bordes -->
+    <color name="md_theme_outline">#72796F</color>
+    <color name="md_theme_outline_variant">#C1C9BD</color>
+
+    <!-- Error -->
+    <color name="md_theme_error">#BA1A1A</color>
+    <color name="md_theme_on_error">#FFFFFF</color>
+    <color name="md_theme_error_container">#FFDAD6</color>
+    <color name="md_theme_on_error_container">#410002</color>
+
+    <!-- ════════════════ Semáforo de madurez ════════════════ -->
     <color name="ripeness_green">#43A047</color>     <!-- INMADURO -->
-    <color name="ripeness_yellow">#FBC02D</color>    <!-- OPTIMO -->
+    <color name="ripeness_yellow">#F9A825</color>    <!-- OPTIMO -->
     <color name="ripeness_red">#E53935</color>       <!-- SOBRE_MADURO -->
 
-    <!-- Auxiliares -->
+    <!-- ════════════════ Auxiliares ════════════════ -->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="scrim">#99000000</color>
     <color name="overlay_dark">#80000000</color>
 </resources>

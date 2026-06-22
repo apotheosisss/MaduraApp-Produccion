@@ -39,7 +39,7 @@ class HistoryViewModelTest {
         ),
     ): FruitRepository = mockk<FruitRepository>().also { repo ->
         every { repo.observeLocalHistory(any()) } returns flowOf(observeFlow)
-        coEvery { repo.refreshHistory(any(), any(), any()) } returns refreshResult
+        coEvery { repo.refreshHistory(any(), any()) } returns refreshResult
     }
 
     @Test
@@ -84,6 +84,8 @@ class HistoryViewModelTest {
         val repository = buildRepository(observeFlow = cached)
 
         val viewModel = HistoryViewModel(repository)
+        // asLiveData() solo colecta el Flow mientras hay un observador activo.
+        viewModel.cachedItems.observeForever {}
         advanceUntilIdle()
 
         assertEquals(cached, viewModel.cachedItems.value)

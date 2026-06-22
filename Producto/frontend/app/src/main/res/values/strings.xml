@@ -40,4 +40,27 @@
     <string name="err_network">Error de conexión. Verifica tu internet.</string>
     <string name="err_server">El servidor no respondió correctamente</string>
     <string name="err_unknown">Ocurrió un error inesperado</string>
+
+    <!-- Autenticación -->
+    <string name="login_tagline">Análisis de madurez agrícola con IA</string>
+    <string name="login_title">Iniciar sesión</string>
+    <string name="login_go_register">¿No tienes cuenta? Regístrate aquí</string>
+    <string name="register_title">Crear cuenta</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="btn_register">Crear cuenta</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_username">Nombre de usuario</string>
+    <string name="hint_confirm_password">Confirmar contraseña</string>
+    <string name="password_helper">Mínimo 8 caracteres, con letras y números</string>
+
+    <!-- Indicador de seguridad (cifrado en tránsito + reposo) -->
+    <string name="security_badge">Tus datos viajan cifrados (HTTPS) y tu contraseña se guarda protegida</string>
+    <string name="cd_security_lock">Conexión cifrada</string>
+
+    <!-- Feedback / Rating -->
+    <string name="rating_title">¿Qué tan preciso fue el diagnóstico?</string>
+    <string name="rating_subtitle">Tu opinión nos ayuda a mejorar el modelo</string>
+    <string name="rating_skip">Omitir</string>
+    <string name="rating_submit">Enviar</string>
 </resources>

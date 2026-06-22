@@ -1,10 +1,12 @@
 import asyncio
 
-from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, Request, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
-from app.schemas.scan_result import PredictResponse
+from app.schemas.auth import UserInfo
+from app.schemas.scan_result import PredictResponse, ScanResult
+from app.services.auth_service import get_current_user
 from app.services.history_service import HistoryService
 from app.services.inference_service import InferenceService
 
@@ -21,7 +23,7 @@ async def predict(
     request: Request,
     file: UploadFile = File(...),
     fruit_type: str | None = Form(default=None),
-    authorization: str = Header(default=""),
+    current_user: UserInfo = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ) -> PredictResponse:
     if file.content_type not in ALLOWED_CONTENT_TYPES:
@@ -39,7 +41,7 @@ async def predict(
 
     image_bytes = await file.read()
 
-    result = await asyncio.to_thread(
+    result: ScanResult | None = await asyncio.to_thread(
         inference_svc.run, image_bytes, model, fruit_type
     )
 
@@ -50,7 +52,8 @@ async def predict(
         )
         return PredictResponse(success=False, error=msg)
 
-    user_token = authorization.removeprefix("Bearer ").strip() or "anonymous"
-    await history_svc.save(result, user_token, db)
+    # Persistir y obtener el scan_id
+    entity = await history_svc.save(result, current_user.user_id, db)
+    result.scan_id = entity.scan_id
 
     return PredictResponse(success=True, data=result)
