@@ -1,8 +1,24 @@
 # Arranque rápido para la defensa — MaduraApp (jueves 25)
 
-> El AWS Learner Lab es **efímero**: al cerrar la sesión la instancia se detiene y el túnel muere. El jueves la instancia tendrá **IP nueva** y cloudflared dará una **URL nueva**. Esta guía hace ese arranque mecánico (~10 min).
+> **CONFIGURACIÓN ACTUAL (recomendada): Elastic IP fija + APK ya compilado.**
+> El backend tiene una **IP pública fija** (Elastic IP `3.215.43.61`) y el APK ya apunta a ella.
+> El jueves, **sin PC, sin SSH, sin túnel y sin recompilar**, solo haces:
 >
-> El backend YA quedó construido y configurado el 21/06; el jueves solo hay que **encender, levantar túnel y recompilar el APK**.
+> 1. **Start Lab** (punto verde) → consola AWS.
+> 2. **EC2 → Instancias → `maduraapp-backend` → Iniciar (Start)**.
+> 3. Espera **2-3 minutos** (arranca el SO, Docker y el contenedor solos; el modelo carga en ~20s).
+> 4. Abre la app en el teléfono → **funciona** (apunta a la IP fija `3.215.43.61:8000`).
+> 5. Al terminar: **Detener (Stop)** la instancia.
+>
+> Verifícalo antes de presentar abriendo en el navegador del teléfono:
+> `http://3.215.43.61:8000/v1/health` → debe decir `model_loaded:true`.
+>
+> ---
+>
+> ### (Plan alternativo) Si la Elastic IP se perdiera (reset del lab)
+> Si el lab se reinicia por completo y la Elastic IP cambia, sigue la guía larga de abajo
+> (túnel cloudflared) y recompila el APK con la URL nueva. Con la Elastic IP asociada esto
+> NO debería pasar entre sesiones normales.
 
 ---
 
