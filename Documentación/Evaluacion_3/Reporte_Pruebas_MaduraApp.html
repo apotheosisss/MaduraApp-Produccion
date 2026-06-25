@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporte de Pruebas — MaduraApp</title>
+<style>
+ *{box-sizing:border-box}
+ body{font-family:Segoe UI,Arial,sans-serif;margin:0;background:#f4f7f2;color:#1a1c19}
+ .wrap{max-width:900px;margin:0 auto;padding:24px}
+ header{background:#2E7D32;color:#fff;border-radius:14px;padding:22px 24px}
+ header h1{margin:0;font-size:24px}
+ header p{margin:4px 0 0;opacity:.9;font-size:14px}
+ .cards{display:flex;gap:14px;margin:18px 0;flex-wrap:wrap}
+ .card{flex:1;min-width:130px;background:#fff;border:1px solid #dde5da;border-radius:12px;padding:16px;text-align:center}
+ .card .big{font-size:30px;font-weight:700;color:#2E7D32}
+ .card.fail .big{color:#b00020}
+ .card .lbl{font-size:13px;color:#555b52;margin-top:2px}
+ .bar{height:12px;background:#e2ece0;border-radius:6px;overflow:hidden;margin:6px 0 18px}
+ .bar>i{display:block;height:100%;background:#43A047;width:100%}
+ table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #dde5da}
+ td{padding:9px 12px;font-size:14px;border-top:1px solid #eef2ec}
+ tr.grp td{background:#eef4ec;font-weight:600;color:#1b5e20;font-size:14px}
+ tr.grp .cnt{float:right;color:#2E7D32}
+ .st{width:64px} .tm{width:80px;text-align:right;color:#777;font-variant-numeric:tabular-nums}
+ .nm{font-family:Consolas,monospace;font-size:13px}
+ .ok{background:#dff3e1;color:#1b5e20;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600}
+ .fail{background:#fde7ea;color:#b00020;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600}
+ footer{margin:18px 0;color:#777;font-size:12px;text-align:center}
+</style></head>
+<body><div class="wrap">
+ <header>
+   <h1>Reporte de Pruebas — MaduraApp</h1>
+   <p>Estado de Avance 3 · TPY1101 · Claudio Vicente Aro Kath · 25-06-2026</p>
+ </header>
+ <div class="cards">
+   <div class="card"><div class="big">36</div><div class="lbl">Pruebas totales</div></div>
+   <div class="card"><div class="big">36</div><div class="lbl">Aprobadas</div></div>
+   <div class="card "><div class="big">0</div><div class="lbl">Fallidas</div></div>
+   <div class="card"><div class="big">100%</div><div class="lbl">Éxito</div></div>
+ </div>
+ <div class="bar"><i></i></div>
+ <p style="font-size:14px;color:#555b52;margin:0 0 8px">
+   <b>17</b> backend (pytest) · <b>19</b> Android (JUnit + MockK). Generado el 25-06-2026.
+ </p>
+ <table><tr class="grp"><td colspan="3">Backend — Inferencia y health (/predict, /health) <span class="cnt">7/7</span></td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_health</td><td class="tm">0.012s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_requires_auth</td><td class="tm">0.002s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_unsupported_format</td><td class="tm">0.209s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_invalid_fruit_type</td><td class="tm">0.005s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_no_detection</td><td class="tm">0.005s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_with_detection</td><td class="tm">0.008s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_with_fruit_filter</td><td class="tm">0.009s</td></tr>
+<tr class="grp"><td colspan="3">Backend — Historial, autenticación y feedback <span class="cnt">10/10</span></td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_requires_auth</td><td class="tm">0.569s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_empty_for_new_user</td><td class="tm">0.248s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_after_predict</td><td class="tm">0.232s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_pagination</td><td class="tm">0.005s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_limit_validation</td><td class="tm">0.004s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_auth_register_duplicate</td><td class="tm">0.210s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_auth_register_weak_password</td><td class="tm">0.003s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_auth_login_wrong_password</td><td class="tm">0.203s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_feedback_submit</td><td class="tm">0.019s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_feedback_invalid_rating</td><td class="tm">0.005s</td></tr>
+<tr class="grp"><td colspan="3">Android — Repositorio y caché offline <span class="cnt">9/9</span></td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">predict NO cachea cuando el backend no detecta nada</td><td class="tm">1.584s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">refreshHistory exitoso reemplaza el cache local cuando offset es 0</td><td class="tm">0.064s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">refreshHistory con offset mayor a 0 NO limpia el cache</td><td class="tm">0.008s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">predict cachea el resultado cuando el backend detecta una fruta</td><td class="tm">0.007s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">refreshHistory falla devuelve Result failure sin tocar cache</td><td class="tm">0.008s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">observeLocalHistory emite los items del cache local</td><td class="tm">0.060s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">isBackendHealthy retorna false ante excepcion de red</td><td class="tm">0.155s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">isBackendHealthy retorna true cuando el endpoint responde con status ok</td><td class="tm">0.012s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">predict propaga la excepcion del API como Result failure</td><td class="tm">0.008s</td></tr>
+<tr class="grp"><td colspan="3">Android — ViewModel de escaneo (estados UI) <span class="cnt">6/6</span></td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">submitImage cuando success false y no hay error mensaje usa fallback</td><td class="tm">0.102s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">submitImage cuando el backend no detecta nada transiciona a NoDetection</td><td class="tm">0.007s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">reset vuelve el estado a Idle</td><td class="tm">0.004s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">estado inicial es Idle</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">submitImage transiciona a Error cuando el repository falla</td><td class="tm">0.006s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">submitImage cuando hay deteccion transiciona a Success</td><td class="tm">0.004s</td></tr>
+<tr class="grp"><td colspan="3">Android — ViewModel de historial <span class="cnt">4/4</span></td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">init dispara refresh y termina en Loaded cuando el backend responde</td><td class="tm">0.014s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">cachedItems refleja el stream del repository</td><td class="tm">0.012s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">refresh manual vuelve a Loading antes del resultado</td><td class="tm">0.007s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">cuando el refresh falla expone Error con cache local</td><td class="tm">0.012s</td></tr>
+</table>
+ <footer>Reporte auto-contenido — funciona en cualquier navegador sin dependencias.</footer>
+</div></body></html>
