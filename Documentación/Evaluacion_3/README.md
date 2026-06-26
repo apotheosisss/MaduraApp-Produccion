@@ -26,6 +26,7 @@
 | 09 | [`09_Pruebas_Rendimiento.md`](09_Pruebas_Rendimiento.md) | Tiempos de respuesta y concurrencia (obs. docente) |
 | 10 | [`10_Gestion_Proyecto.md`](10_Gestion_Proyecto.md) | Gestión: objetivos SMART, alcance, justificación cloud, atributos de calidad, certificación |
 | 11 | [`11_Arquitectura_AWS.md`](11_Arquitectura_AWS.md) | Arquitectura AWS (EC2 + RDS), Docker, env, backup — **reemplaza la infra de EV2** |
+| 12 | [`12_Anexos.md`](12_Anexos.md) | Contrato de API, DDL, variables de entorno, comandos, glosario, referencias |
 
 > **Diagramas nuevos:** `../diagramas/Gantt_MaduraApp_v3.png` · diagrama de despliegue (Mermaid) en el doc 11.
 > **Análisis de coherencia:** [`ANALISIS_BRECHAS_vs_Formato.md`](ANALISIS_BRECHAS_vs_Formato.md) — comparación con el formato institucional.

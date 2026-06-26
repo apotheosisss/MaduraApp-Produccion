@@ -58,3 +58,17 @@ El resultado es un producto que no solo funciona, sino que **protege los datos p
 6. **El diseño se apoya en un sistema, no en pantallas sueltas.** Centralizar color, tipografía y espaciado en tokens (Material 3) hizo que el modo oscuro y la consistencia surgieran "gratis" al cambiar las pantallas.
 
 7. **La documentación es parte del producto.** Tener la suite real y los commits permitió construir este informe sobre hechos verificables, no sobre afirmaciones; cada caso de prueba y cada mejora es trazable.
+
+---
+
+## 5. Aprendizajes técnicos en profundidad (EP3)
+
+8. **La infraestructura real rara vez coincide con el plan, y eso debe documentarse.** El diseño inicial apuntaba a Render + Supabase; la realidad fue hostear desde el PC (EP2) y luego AWS EC2 (EP3). La lección no es "planificar mejor", sino **mantener la documentación sincronizada con la implementación**: un diagrama que contradice el `Dockerfile` o las pruebas es un defecto de calidad. Por eso se reescribió la vista de despliegue y se marcaron los documentos obsoletos.
+
+9. **Las restricciones del entorno definen la arquitectura tanto como los requisitos.** El AWS Academy Learner Lab —efímero, sin GPU y con un rol IAM restringido— obligó a usar EC2 (IaaS) en vez de un PaaS más "puro". Aprendí a **justificar la decisión con honestidad** en lugar de presentar una arquitectura ideal que no se implementó.
+
+10. **Una métrica sin número no es un objetivo.** Reformular metas vagas ("que sea rápido y de calidad") como objetivos SMART (inferencia < 400 ms, cobertura ≥ 75%, 0 errores @ 50 concurrentes) cambió la forma de evaluar el producto: pasé de opiniones a evidencia medible. La cobertura del 76% reveló además **dónde faltaban pruebas** (wrapper del modelo, ramas de error), guiando el trabajo futuro.
+
+11. **Probar el rendimiento aísla los cuellos de botella reales.** La prueba de concurrencia mostró que el límite no es la red ni la base de datos, sino la **CPU durante la inferencia** (modelo sin GPU). Esto orienta una mejora concreta (GPU o cola de inferencia) en vez de optimizar a ciegas.
+
+12. **La separación dev/prod por configuración paga dividendos.** Que la base de datos se elija por `DB_URL` permitió usar SQLite en pruebas (rápido, aislado) y PostgreSQL en producción **sin cambiar código**, cumpliendo la paridad de ambientes que exige el estándar.
