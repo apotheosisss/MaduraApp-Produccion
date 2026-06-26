@@ -147,19 +147,22 @@ build_acta(
 
 build_acta(
     "Acta_Avance_EP3_MaduraApp.pdf", 3,
-    "Plan de pruebas, validación, rendimiento y mejoras",
+    "Plan de pruebas, validación, rendimiento, seguridad y mejoras",
     "25 / 06 / 2026",
-    ["Plan de pruebas con 57 casos automatizados (38 backend + 19 Android), 100% en verde.",
-     "Pruebas de verificación del estado de madurez de la fruta (clase → estado/color/recomendación).",
-     "Pruebas de validación, seguridad (OWASP) y base de datos de pruebas documentada.",
-     "Pruebas de rendimiento y tiempos de respuesta bajo concurrencia (ambiente controlado).",
-     "15 mejoras al producto (seguridad, usabilidad, corrección, completitud, pertinencia).",
-     "Despliegue del backend en AWS (EC2 + Docker) e integración continua (GitHub Actions).",
-     "Informe técnico, presentación de defensa y evidencias de pruebas."],
-    "En la tercera evaluación se formalizó el aseguramiento de calidad: se diseñó y aplicó el plan de "
-    "pruebas a todos los componentes (57 casos en verde), se midió el rendimiento bajo concurrencia y "
-    "se aplicaron 15 mejoras derivadas de los resultados y de una auditoría de seguridad OWASP. "
-    "Además se desplegó el backend en AWS y se incorporó integración continua, dejando el producto "
-    "probado, seguro y funcional de extremo a extremo.",
+    ["Objetivos específicos cuantificables (SMART, OE-01 a OE-06) con metas y resultados.",
+     "Plan de pruebas: 57 casos automatizados (38 backend + 19 Android), 100% en verde.",
+     "21 pruebas de verificación del estado de madurez de la fruta (clase → estado/color/recomendación).",
+     "Cobertura de código del backend: 76% (medida con pytest-cov).",
+     "Pruebas de rendimiento y concurrencia: ~200 ms de inferencia, 0 errores con 50 usuarios simultáneos.",
+     "Endurecimiento de seguridad OWASP (JWT, bcrypt, HTTPS, AES-256) y 15 mejoras al producto.",
+     "Arquitectura cloud en AWS: EC2 + Docker (cómputo) y RDS PostgreSQL (base de datos); CI en GitHub Actions.",
+     "Documentación de gestión (objetivos, alcance, atributos de calidad, certificación), informe técnico, "
+     "diagramas actualizados, anexos (contrato de API) y guion de defensa."],
+    "En la tercera evaluación se formalizó el aseguramiento de calidad y la gestión del proyecto: se "
+    "definieron objetivos SMART, se diseñó y aplicó el plan de pruebas a todos los componentes (57 casos "
+    "en verde, 76% de cobertura), se midió el rendimiento bajo concurrencia y se aplicaron 15 mejoras "
+    "derivadas de los resultados y de una auditoría OWASP. La arquitectura se desplegó en AWS (EC2 + "
+    "RDS PostgreSQL) con integración continua, dejando el producto probado, seguro, documentado y "
+    "funcional de extremo a extremo.",
 )
 print("Listo: 3 actas generadas.")
