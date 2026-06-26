@@ -119,7 +119,7 @@ def build_acta(filename, num, subtitulo, fecha, entregables, resumen):
 build_acta(
     "Acta_Avance_EP1_MaduraApp.pdf", 1,
     "Definición del problema, requisitos y diseño inicial",
-    "____ / ____ / 2026   (completar)",
+    "08 / 04 / 2026",
     ["Informe de Evaluación 1: definición del problema (pérdidas post-cosecha) y objetivos.",
      "Especificación de Requisitos de Software (ERS) con requisitos funcionales y no funcionales.",
      "Diagramas: casos de uso, Ishikawa (causa raíz) y carta Gantt del proyecto.",
