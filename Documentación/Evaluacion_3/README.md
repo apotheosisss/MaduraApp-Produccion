@@ -28,42 +28,24 @@
 | 11 | [`11_Arquitectura_AWS.md`](11_Arquitectura_AWS.md) | Arquitectura AWS (EC2 + RDS), Docker, env, backup — **reemplaza la infra de EV2** |
 | 12 | [`12_Anexos.md`](12_Anexos.md) | Contrato de API, DDL, variables de entorno, comandos, glosario, referencias |
 
-> **Diagramas nuevos:** `../diagramas/Gantt_MaduraApp_v3.png` · diagrama de despliegue (Mermaid) en el doc 11.
-> **Análisis de coherencia:** [`ANALISIS_BRECHAS_vs_Formato.md`](ANALISIS_BRECHAS_vs_Formato.md) — comparación con el formato institucional.
+> **Diagramas:** `../diagramas/Gantt_MaduraApp_v3.png` (Carta Gantt) · diagrama de despliegue (Mermaid) en el doc 11.
 
 **Evidencia de pruebas:** **`Reporte_Pruebas_MaduraApp.html`** — reporte auto-contenido con las 57 pruebas.
 
+**Presentación de defensa:** **`MaduraApp_Presentacion_Evaluacion3.pptx`**.
+
 ---
 
-## ✍️ Actas de avance (para firmar)
+## ✍️ Actas de avance
 
 - **`Acta_Avance_EP1_MaduraApp.pdf`** · **`Acta_Avance_EP2_MaduraApp.pdf`** · **`Acta_Avance_EP3_MaduraApp.pdf`**
 - Cada una con identificación, fecha, entregables y espacio para firma de **estudiante** y **docente**.
 
 ---
 
-## 🎤 Presentación (defensa — 70%)
-
-- **`MaduraApp_Presentacion_Evaluacion3.pptx`** — 9 slides con notas de orador.
-- **`MaduraApp_Presentacion_Evaluacion3_GRABAR.pptx`** — versión con narración verbatim para grabar video.
-- [`07_Guion_Defensa.md`](07_Guion_Defensa.md) — Preguntas probables del Q&A en detalle.
-- **`Guion_Celular_Defensa.pdf`** — guion de bolsillo (Di / Clave / Si profundizan) para el celular.
-- **`Guion_Narracion_Grabacion.md`** — narración verbatim (teleprompter).
-
----
-
-## 🔧 Scripts de generación
-
-- `_gen_informe.py` — genera el Word desde el contenido.
-- `_gen_ppt.py` — genera el PPT.
-
-Reproducibles con `python _gen_informe.py` / `python _gen_ppt.py` (requiere `python-docx` y `python-pptx`).
-
----
-
 ## ✅ Resumen de cumplimiento
 
-- **57/57 pruebas** automatizadas en verde (38 backend + 19 Android).
+- **57/57 pruebas** automatizadas en verde (38 backend + 19 Android) · **76%** de cobertura.
+- **Objetivos SMART** (OE-01 a OE-06) cumplidos.
 - **15 mejoras** trazables a commits, por estándar de calidad.
-- **Integración continua** (`backend_ci.yml`) ejecutando la suite en cada push.
-- Pendiente honesto: despliegue en AWS Lab y aprobación del plan en la defensa.
+- Arquitectura **AWS EC2 + RDS PostgreSQL** desplegada y verificada · **CI** en GitHub Actions.
