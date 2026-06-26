@@ -117,8 +117,75 @@ para("MaduraApp es un sistema de visión computacional accesible desde el móvil
      "pruebas, su aplicación a los componentes del proyecto y las mejoras derivadas de los "
      "resultados.")
 
-# ─────────────── 2. RESUMEN EVAL 1 ───────────────
-h1("2. Resumen Evaluación 1 — Problema y requisitos")
+# ─────────────── 2. GESTIÓN DEL PROYECTO ───────────────
+h1("2. Gestión del Proyecto")
+
+h2("2.1 Objetivos específicos cuantificables (SMART)")
+add_table(
+    ["ID", "Objetivo", "Meta", "Obtenido", "Estado"],
+    [
+        ["OE-01", "Precisión del modelo (mAP@50)", "≥ 0,75", "0,9229", "✅"],
+        ["OE-02", "Rendimiento (inferencia / E2E)", "< 400 ms / < 1 s", "~200 ms / ~600-700 ms", "✅"],
+        ["OE-03", "Pruebas y cobertura", "≥ 57 casos · ≥ 75%", "57/57 · 76%", "✅"],
+        ["OE-04", "Estabilidad bajo carga", "0 errores @ 50 concurrentes", "0 errores", "✅"],
+        ["OE-05", "Eficiencia del modelo", "< 10 MB", "5,2 MB", "✅"],
+        ["OE-06", "Seguridad de datos personales", "OWASP · cifrado", "Cumplido", "✅"],
+    ],
+)
+
+h2("2.2 Alcance, supuestos y restricciones")
+para("Alcance: app Android + API FastAPI + modelo YOLO26n para 4 frutas climatéricas × 3 estados "
+     "de madurez. Entregables: código versionado, modelo entrenado, suite de 57 pruebas + cobertura, "
+     "documentación y despliegue en AWS.")
+for b in [
+    "Supuesto: disponibilidad de los créditos del AWS Academy Learner Lab para el despliegue.",
+    "Restricción temporal: desarrollo acotado a las 3 evaluaciones parciales.",
+    "Restricción de infraestructura: el Learner Lab es efímero, sin GPU y con rol IAM restringido "
+    "(condiciona el modelo de servicio cloud).",
+    "Restricción de alcance: limitado a 4 frutas y 3 estados.",
+]:
+    doc.add_paragraph(b, style="List Bullet")
+
+h2("2.3 Arquitectura y justificación de servicios cloud (AWS)")
+para("La arquitectura evolucionó: en EP2 el backend se hosteó desde el PC del estudiante de forma "
+     "remota; en EP3 se desplegó en AWS. La app es config-driven (la base de datos se elige por DB_URL).")
+add_table(
+    ["Modelo", "Servicio", "Justificación"],
+    [
+        ["IaaS", "AWS EC2 (t3.small, Docker)", "Cómputo del backend; elegido por restricción del Learner Lab (no habilita PaaS con roles personalizados)"],
+        ["DBaaS", "AWS RDS PostgreSQL (prod) · SQLite (dev)", "BD gestionada: respaldos y parches por AWS; habilita pg_dump/pg_restore"],
+        ["SaaS", "GitHub Actions (CI)", "Ejecuta la suite en cada push sin administrar infraestructura"],
+        ["Contenedores", "Docker", "Paridad de ambientes dev/prod"],
+    ],
+)
+para("Nota: el formato de referencia valora PaaS; se usó EC2 (IaaS) por la restricción del laboratorio "
+     "académico. Se documenta con honestidad. Detalle en 11_Arquitectura_AWS.md.", italic=True)
+
+h2("2.4 Atributos de calidad")
+for b in [
+    "Integridad: validación de imagen, firma JWT, esquema versionado (Alembic).",
+    "Confiabilidad y seguridad: OWASP (JWT, bcrypt, HTTPS, AES-256); 0 errores bajo 50 concurrentes.",
+    "Precisión y oportunidad: mAP@50 = 0,92; inferencia ~200 ms; recomendaciones por estado.",
+    "Mantenibilidad: 4+1, 57 pruebas, CI, Conventional Commits.",
+    "Usabilidad: Material Design 3, modo oscuro, semáforo de madurez.",
+]:
+    doc.add_paragraph(b, style="List Bullet")
+
+h2("2.5 Estrategia de certificación — criterios de aceptación")
+add_table(
+    ["Criterio", "Meta", "Resultado"],
+    [
+        ["Precisión", "mAP@50 ≥ 0,75", "0,9229 ✅"],
+        ["Suite de pruebas", "100% verde", "57/57 ✅"],
+        ["Cobertura de código", "≥ 75% núcleo", "76% ✅"],
+        ["Estabilidad", "0 errores @ 50", "0 ✅"],
+        ["Build", "APK compila", "✅"],
+        ["Seguridad", "0 secretos · OWASP", "✅"],
+    ],
+)
+
+# ─────────────── 3. RESUMEN EVAL 1 ───────────────
+h1("3. Resumen Evaluación 1 — Problema y requisitos")
 for b in [
     "Problemática: pérdidas post-cosecha por falta de criterios objetivos de madurez (Ishikawa).",
     "Solución: app móvil + IA que clasifica madurez y recomienda acción.",
@@ -130,7 +197,7 @@ for b in [
     doc.add_paragraph(b, style="List Bullet")
 
 # ─────────────── 3. RESUMEN EVAL 2 ───────────────
-h1("3. Resumen Evaluación 2 — Arquitectura y producto")
+h1("4. Resumen Evaluación 2 — Arquitectura y producto")
 for b in [
     "Stack: Android nativo (Kotlin + CameraX + Room + MVVM); FastAPI (Python 3.12 async); "
     "YOLO26n; SQLAlchemy + Alembic; PostgreSQL/SQLite.",
@@ -144,7 +211,7 @@ para("Sobre esa base, la Evaluación 3 incorporó autenticación JWT, feedback c
      "endurecimiento de seguridad (OWASP) y un rediseño de UI (Material 3), todos sometidos a pruebas.")
 
 # ─────────────── 4. EVAL 3 ───────────────
-h1("4. Evaluación 3 — Pruebas y mejoras")
+h1("5. Evaluación 3 — Pruebas y mejoras")
 
 h2("4.1 Plan de pruebas")
 para("Se confeccionó un plan de pruebas alineado a la problemática, con 57 casos automatizados "
@@ -264,7 +331,7 @@ para("Git + GitHub, 40 commits, Conventional Commits, ramas de feature, CI (back
      "(.env.example, requirements.txt, migraciones Alembic, build.gradle.kts, .gitignore).")
 
 # ─────────────── 5. CONCLUSIÓN ───────────────
-h1("5. Conclusión y lecciones aprendidas")
+h1("6. Conclusión y lecciones aprendidas")
 para("MaduraApp es hoy un producto funcional, probado y endurecido en seguridad. Las 57 pruebas "
      "pasan al 100%, las mejoras derivadas de los resultados cubren los cinco estándares de "
      "calidad, y la protección de datos personales (cifrado en tránsito/reposo, hashing, JWT) es "

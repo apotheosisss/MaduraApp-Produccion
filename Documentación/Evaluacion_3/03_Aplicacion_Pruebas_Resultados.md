@@ -101,9 +101,30 @@ Reporte HTML navegable: `app/build/reports/tests/testDebugUnitTest/index.html`.
 |--------|-----|-----------|-----------|
 | mAP@50 del modelo | ≥ 0.75 | **0.9229** | `scripts/evaluate_model.py` |
 | Tamaño del modelo | < 10 MB | 5.2 MB | `backend/weights/yolo26n_maduraapp.pt` |
+| **Cobertura de código (backend)** | **≥ 75% núcleo** | **76% total** | `pytest --cov=app` |
 | APK compila | sin errores | ✅ (23 MB) | `gradlew assembleDebug` |
 | Migraciones aplican | 3 tablas | ✅ | `alembic upgrade head` |
 | CI ejecuta la suite | configurado | ✅ | `.github/workflows/backend_ci.yml` |
+
+### 4.1 Cobertura de código (detalle)
+
+Medida con `pytest --cov=app` sobre los 38 tests del backend: **76% total** (410 sentencias, 99 sin cubrir). Los **módulos de lógica crítica** están altamente cubiertos; la brecha se concentra en código de infraestructura difícil de probar por unidad (wrapper del modelo real, lifespan de arranque).
+
+| Módulo | Cobertura |
+|--------|-----------|
+| `core/security.py` (JWT, hashing) | 100% |
+| `models/*` (ORM) | 100% |
+| `schemas/*` (validación) | 95–100% |
+| `routers/auth · history · predict` | 90–94% |
+| `services/inference` (estado de fruta) | alta (21 tests) |
+| `services/auth_service` | 53% (ramas de error) |
+| `routers/feedback` | 50% |
+| `core/yolo_wrapper` (modelo real, mockeado) | 29% |
+| **TOTAL** | **76%** |
+
+```bash
+cd Producto/backend && pytest tests/ --cov=app --cov-report=term-missing
+```
 
 ---
 

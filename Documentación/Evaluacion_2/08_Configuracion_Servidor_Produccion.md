@@ -1,5 +1,7 @@
 # Configuración del Servidor de Producción — MaduraApp
 
+> ⚠️ **Actualizado en EP3:** la arquitectura migró a **AWS EC2 + RDS PostgreSQL** (en EP2 el backend se hosteó desde el PC del estudiante de forma remota). La descripción basada en Render/Supabase de este documento corresponde al diseño de la Evaluación 2 y fue **reemplazada** por [`../Evaluacion_3/11_Arquitectura_AWS.md`](../Evaluacion_3/11_Arquitectura_AWS.md) y [`../Evaluacion_3/10_Gestion_Proyecto.md`](../Evaluacion_3/10_Gestion_Proyecto.md).
+
 > Documento que describe la **infraestructura cloud de producción** de MaduraApp, incluyendo el procedimiento para desplegar desde cero, las variables de entorno, la base de datos gestionada y la estrategia de despliegue continuo.
 >
 > Este documento responde al indicador **IL2.2** y al criterio 3 de la rúbrica del encargo (gestión de servidor de producción).

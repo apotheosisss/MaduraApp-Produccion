@@ -1,5 +1,7 @@
 # Procedimientos de Backup y Replicación de Datos — MaduraApp
 
+> ⚠️ **Actualizado en EP3:** la arquitectura migró a **AWS EC2 + RDS PostgreSQL** (en EP2 el backend se hosteó desde el PC del estudiante de forma remota). La descripción basada en Render/Supabase de este documento corresponde al diseño de la Evaluación 2 y fue **reemplazada** por [`../Evaluacion_3/11_Arquitectura_AWS.md`](../Evaluacion_3/11_Arquitectura_AWS.md) y [`../Evaluacion_3/10_Gestion_Proyecto.md`](../Evaluacion_3/10_Gestion_Proyecto.md).
+
 > Este documento describe los **procedimientos operativos** para mantener copias de seguridad de la base de datos de producción y para **replicarla** en el ambiente de pruebas. También cubre la replicación de la configuración del servidor de producción en otros entornos.
 >
 > Responde al **criterio 3 de la rúbrica** ("procedimientos detallados para realizar una copia de seguridad de la base de datos de producción en el entorno de pruebas") e indicador IL2.2.

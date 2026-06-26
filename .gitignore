@@ -31,3 +31,7 @@ Thumbs.db
 !Producto/backend/weights/yolo26n_maduraapp.pt
 
 CLAUDE.md
+
+# Artefactos de pruebas/cobertura
+Producto/backend/.coverage
+Producto/backend/perf_results.json

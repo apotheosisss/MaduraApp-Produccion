@@ -22,8 +22,13 @@
 | 04 | [`04_Mejoras_Producto.md`](04_Mejoras_Producto.md) | 3 — Mejoras al producto (5 estándares) |
 | 05 | [`05_Evidencia_Control_Versiones.md`](05_Evidencia_Control_Versiones.md) | 4 — Evidencias / control de versiones |
 | 06 | [`06_Conclusion_Lecciones.md`](06_Conclusion_Lecciones.md) | 4 — Conclusión y lecciones |
-| 08 | [`08_Deploy_AWS_LearnerLab.md`](08_Deploy_AWS_LearnerLab.md) | Configuración de servidor de producción (AWS) |
+| 08 | [`08_Deploy_AWS_LearnerLab.md`](08_Deploy_AWS_LearnerLab.md) | Guía operativa de despliegue (AWS Learner Lab) |
 | 09 | [`09_Pruebas_Rendimiento.md`](09_Pruebas_Rendimiento.md) | Tiempos de respuesta y concurrencia (obs. docente) |
+| 10 | [`10_Gestion_Proyecto.md`](10_Gestion_Proyecto.md) | Gestión: objetivos SMART, alcance, justificación cloud, atributos de calidad, certificación |
+| 11 | [`11_Arquitectura_AWS.md`](11_Arquitectura_AWS.md) | Arquitectura AWS (EC2 + RDS), Docker, env, backup — **reemplaza la infra de EV2** |
+
+> **Diagramas nuevos:** `../diagramas/Gantt_MaduraApp_v3.png` · diagrama de despliegue (Mermaid) en el doc 11.
+> **Análisis de coherencia:** [`ANALISIS_BRECHAS_vs_Formato.md`](ANALISIS_BRECHAS_vs_Formato.md) — comparación con el formato institucional.
 
 **Evidencia de pruebas:** **`Reporte_Pruebas_MaduraApp.html`** — reporte auto-contenido con las 57 pruebas.
 

@@ -1,4 +1,6 @@
 # Vista Física — MaduraApp
+
+> ⚠️ **Actualizado en EP3:** la arquitectura migró a **AWS EC2 + RDS PostgreSQL** (en EP2 el backend se hosteó desde el PC del estudiante de forma remota). La descripción basada en Render/Supabase de este documento corresponde al diseño de la Evaluación 2 y fue **reemplazada** por [`../Evaluacion_3/11_Arquitectura_AWS.md`](../Evaluacion_3/11_Arquitectura_AWS.md) y [`../Evaluacion_3/10_Gestion_Proyecto.md`](../Evaluacion_3/10_Gestion_Proyecto.md).
 ## Modelo 4+1 de Kruchten · Vista 4 de 5
 
 > La **Vista Física** (también llamada Vista de Despliegue) documenta la **topología hardware/software** sobre la cual se ejecuta el sistema. Describe los **nodos físicos**, los **artefactos desplegados** en cada nodo y las **comunicaciones** entre ellos. Responde a la pregunta **¿dónde corre cada cosa y cómo se conecta?**
