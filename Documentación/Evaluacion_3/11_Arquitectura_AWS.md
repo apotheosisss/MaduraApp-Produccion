@@ -13,6 +13,8 @@
 
 La app es **config-driven**: la base de datos se selecciona por la variable `DB_URL`, por lo que el salto SQLite → PostgreSQL es un cambio de configuración, no de código.
 
+> ✅ **Despliegue verificado (25/06/2026):** el backend corre en **AWS EC2** (Docker) conectado a una instancia **AWS RDS PostgreSQL** (`db.t3.micro`, misma VPC). Las migraciones Alembic se aplicaron sobre RDS (`Context impl PostgresqlImpl`) y el flujo registro → login fue probado de extremo a extremo contra la base PostgreSQL. La arquitectura del diagrama coincide con la implementación real, el `Dockerfile` y las pruebas.
+
 ---
 
 ## 2. Vista de despliegue (diagrama actualizado)
