@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Genera un reporte HTML auto-contenido (un solo archivo) con los resultados
-reales de las 36 pruebas: backend (pytest) + Android (JUnit)."""
+reales de las 57 pruebas: backend (pytest) + Android (JUnit)."""
 import os, glob, html
 import xml.etree.ElementTree as ET
 from datetime import date
@@ -13,13 +13,14 @@ ANDROID_DIR = os.path.join(BASE, "..", "..", "Producto", "frontend", "app",
                            "build", "test-results", "testDebugUnitTest")
 
 FRIENDLY = {
+    "tests.test_inference": "Backend — Verificación del estado de madurez (clase → estado/color)",
     "tests.test_predict": "Backend — Inferencia y health (/predict, /health)",
     "tests.test_history": "Backend — Historial, autenticación y feedback",
     "cl.duoc.maduraapp.data.repository.FruitRepositoryTest": "Android — Repositorio y caché offline",
     "cl.duoc.maduraapp.ui.ScanViewModelTest": "Android — ViewModel de escaneo (estados UI)",
     "cl.duoc.maduraapp.ui.history.HistoryViewModelTest": "Android — ViewModel de historial",
 }
-ORDER = list(FRIENDLY.keys())
+ORDER = ["tests.test_inference", "tests.test_predict", "tests.test_history"]
 
 def parse(path):
     """Devuelve lista de (classname, name, ok, time)."""

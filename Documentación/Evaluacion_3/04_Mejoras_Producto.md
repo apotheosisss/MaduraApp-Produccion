@@ -28,9 +28,9 @@ Durante la Evaluación 3 se ejecutó la suite de pruebas y se realizó una audit
 | M-07 | Revisión UX (skill ui-ux-pro-max): emojis usados como íconos (inconsistentes entre dispositivos) | Reemplazo por **íconos vectoriales** de fruta; sistema de color Material 3 completo | **Usabilidad** | `88ffe74` | APK compila; render consistente |
 | M-08 | Revisión UX: modo oscuro inconsistente (tema DayNight sin paleta nocturna) | **Modo oscuro real** (`values-night`) emparejado con el claro; tokens semánticos | **Usabilidad** | `88ffe74` | Contraste verificado en ambos temas |
 | M-09 | Revisión UX: tarjetas sin feedback táctil; tipografía y espaciado inconsistentes | `MaterialCardView` con ripple; roles tipográficos M3; ritmo de espaciado 4/8dp | **Usabilidad** | `88ffe74` | APK compila; 19/19 tests ✅ |
-| M-10 | Pruebas en rojo tras integrar auth: endpoints exigían JWT pero los tests no lo enviaban | Tests actualizados con fixture `auth_headers` (token real); códigos 401 corregidos | **Corrección** | `69b7293` | Suite backend 17/17 ✅ |
+| M-10 | Pruebas en rojo tras integrar auth: endpoints exigían JWT pero los tests no lo enviaban | Tests actualizados con fixture `auth_headers` (token real); códigos 401 corregidos | **Corrección** | `69b7293` | Suite backend 38/38 ✅ |
 | M-11 | Build de Android roto tras merge: `AuthRequestDto`/`bearerToken` inexistentes | Eliminado código muerto; firmas alineadas con `AuthInterceptor`; tests JVM corregidos | **Corrección** | `a8fc521` | APK compila; 19/19 tests ✅ |
-| M-12 | Dependencias de auth ausentes/incompatibles (`email-validator`, `bcrypt 5.x` rompe `passlib`) | `pydantic[email]` añadido; `bcrypt` fijado a 4.0.1 | **Corrección / Completitud** | `69b7293` | Suite backend 17/17 ✅ |
+| M-12 | Dependencias de auth ausentes/incompatibles (`email-validator`, `bcrypt 5.x` rompe `passlib`) | `pydantic[email]` añadido; `bcrypt` fijado a 4.0.1 | **Corrección / Completitud** | `69b7293` | Suite backend 38/38 ✅ |
 | M-13 | Funcionalidades de auth y feedback codeadas pero sin integrar/probar | Integración end-to-end: registro→login→escaneo→rating→historial por usuario | **Completitud** | `43cd16c`, `a8fc521` | CP-01…CP-18, CP-14 ✅ |
 | M-14 | Las recomendaciones de madurez deben ser pertinentes al dominio agrícola | Mensajes por estado (Inmaduro/Óptimo/Sobremaduro) y por fruta; filtro de fruta mejora precisión | **Pertinencia** | (base eval 2) | CP-05, CP-06 ✅ |
 | M-15 | Sin integración continua: las pruebas solo corrían localmente, arriesgando regresiones | Workflow `backend_ci.yml` que ejecuta la suite pytest en cada push/PR a las ramas principales | **Corrección / Completitud** | (Eval 3) | Suite se ejecuta automáticamente en GitHub Actions |
@@ -53,9 +53,9 @@ Durante la Evaluación 3 se ejecutó la suite de pruebas y se realizó una audit
 
 ```
 Pruebas/Auditoría  ──►  Hallazgo  ──►  Mejora (commit)  ──►  Re-prueba (verde)
-   pytest/JUnit          M-01..M-14      43cd16c/db09e83/      36/36 tests ✅
+   pytest/JUnit          M-01..M-14      43cd16c/db09e83/      57/57 tests ✅
    + OWASP audit                         88ffe74/69b7293/      APK compila ✅
                                          a8fc521
 ```
 
-Todas las mejoras quedaron **verificadas**: la suite completa (36 pruebas) está en verde y el APK compila e instala, confirmando que los hallazgos fueron resueltos sin introducir regresiones.
+Todas las mejoras quedaron **verificadas**: la suite completa (57 pruebas) está en verde y el APK compila e instala, confirmando que los hallazgos fueron resueltos sin introducir regresiones.

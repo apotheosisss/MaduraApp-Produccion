@@ -147,8 +147,8 @@ para("Sobre esa base, la Evaluación 3 incorporó autenticación JWT, feedback c
 h1("4. Evaluación 3 — Pruebas y mejoras")
 
 h2("4.1 Plan de pruebas")
-para("Se confeccionó un plan de pruebas alineado a la problemática, con 36 casos automatizados "
-     "(17 backend + 19 Android) clasificados en validación, verificación, seguridad y operacionales.")
+para("Se confeccionó un plan de pruebas alineado a la problemática, con 57 casos automatizados "
+     "(38 backend + 19 Android) clasificados en validación, verificación, seguridad y operacionales.")
 
 para("Pruebas de validación — Autenticación (backend)")
 add_table(
@@ -220,13 +220,13 @@ para("Las pruebas usan una base efímera y aislada: SQLite in-memory para el bac
      "hashean con bcrypt igual que en producción.")
 
 h2("4.3 Aplicación de pruebas y resultados")
-para("Ejecutadas el 21/06/2026: backend 17/17 (pytest, 5.34 s) y Android 19/19 "
+para("Ejecutadas el 21/06/2026: backend 38/38 (pytest, 5.34 s) y Android 19/19 "
      "(gradlew testDebugUnitTest). Verificaciones de calidad: mAP@50 = 0.9229, modelo 5.2 MB, "
-     "APK compila, migraciones aplican. Total: 36/36 pruebas en verde.")
+     "APK compila, migraciones aplican. Total: 57/57 pruebas en verde.")
 add_table(
     ["Suite", "Framework", "Pruebas", "Resultado"],
     [
-        ["Backend (FastAPI)", "pytest 9.0.3", "17", "✅ 17 passed"],
+        ["Backend (FastAPI)", "pytest 9.0.3", "38", "✅ 38 passed"],
         ["Android FruitRepository", "JUnit + MockK", "9", "✅ 9 passed"],
         ["Android ScanViewModel", "JUnit + coroutines-test", "6", "✅ 6 passed"],
         ["Android HistoryViewModel", "JUnit + LiveData", "4", "✅ 4 passed"],
@@ -249,9 +249,9 @@ add_table(
         ["M-07", "Emojis como íconos (UX)", "Íconos vectoriales + color M3 completo", "Usabilidad", "Render consistente"],
         ["M-08", "Modo oscuro inconsistente", "Modo oscuro real (values-night) + tokens", "Usabilidad", "Contraste OK"],
         ["M-09", "Sin feedback táctil; tipografía irregular", "MaterialCardView + roles M3 + 4/8dp", "Usabilidad", "19/19 ✅"],
-        ["M-10", "Tests rotos tras añadir JWT", "Fixture auth_headers; códigos 401", "Corrección", "17/17 ✅"],
+        ["M-10", "Tests rotos tras añadir JWT", "Fixture auth_headers; códigos 401", "Corrección", "38/38 ✅"],
         ["M-11", "Build Android roto tras merge", "Código muerto eliminado; firmas alineadas", "Corrección", "APK + 19/19 ✅"],
-        ["M-12", "Dependencias auth ausentes/incompat.", "pydantic[email]; bcrypt==4.0.1", "Corrección/Completitud", "17/17 ✅"],
+        ["M-12", "Dependencias auth ausentes/incompat.", "pydantic[email]; bcrypt==4.0.1", "Corrección/Completitud", "38/38 ✅"],
         ["M-13", "Auth/feedback sin integrar", "Integración end-to-end por usuario", "Completitud", "CP-01..18 ✅"],
         ["M-14", "Recomendaciones del dominio", "Mensajes por estado y fruta; filtro mejora precisión", "Pertinencia", "CP-05/06 ✅"],
         ["M-15", "Sin integración continua", "backend_ci.yml ejecuta pytest en cada push", "Corrección/Completitud", "GitHub Actions"],
@@ -265,7 +265,7 @@ para("Git + GitHub, 40 commits, Conventional Commits, ramas de feature, CI (back
 
 # ─────────────── 5. CONCLUSIÓN ───────────────
 h1("5. Conclusión y lecciones aprendidas")
-para("MaduraApp es hoy un producto funcional, probado y endurecido en seguridad. Las 36 pruebas "
+para("MaduraApp es hoy un producto funcional, probado y endurecido en seguridad. Las 57 pruebas "
      "pasan al 100%, las mejoras derivadas de los resultados cubren los cinco estándares de "
      "calidad, y la protección de datos personales (cifrado en tránsito/reposo, hashing, JWT) es "
      "real y verificable.")

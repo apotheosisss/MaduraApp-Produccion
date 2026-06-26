@@ -12,7 +12,7 @@
 | 1–2 | 2 Agenda | Ruta de la presentación |
 | 2–4 | 3 Contexto | Problema (pérdidas post-cosecha) + solución + KPI |
 | 4–7 | 4 Plan de pruebas | Los 4 tipos de prueba y por qué (clave) |
-| 7–10 | 5 Aplicación | 36/36 verde, CI, cómo se ejecutan |
+| 7–10 | 5 Aplicación | 57/57 verde, CI, cómo se ejecutan |
 | 10–12 | 6 Mejoras | 15 mejoras por estándar, derivadas de las pruebas |
 | 12–13 | 7 Seguridad | OWASP + mensaje honesto al usuario |
 | 13–15 | 8 Conclusión | Logros + pendientes honestos |
@@ -66,7 +66,7 @@ R: No ve nada útil: el tráfico va por HTTPS/TLS. Y la contraseña nunca viaja 
 R: El token JWT se cifra en reposo con EncryptedSharedPreferences (AES-256), con la clave en el Android Keystore. Si alguien extrae el archivo del dispositivo, no puede leer el token.
 
 **P: ¿Qué cobertura tienen las pruebas?**
-R: 36 casos cubren los componentes críticos: autenticación, inferencia, historial, feedback, cache offline y la capa de presentación (MVVM). La matriz RF↔casos del plan muestra qué requisito cubre cada prueba.
+R: 57 casos cubren los componentes críticos: autenticación, inferencia, historial, feedback, cache offline y la capa de presentación (MVVM). La matriz RF↔casos del plan muestra qué requisito cubre cada prueba.
 
 **P: ¿Qué falta / qué mejorarían?**
 R: Desplegar el backend en el laboratorio AWS, automatizar las pruebas end-to-end (hoy la cámara se prueba manualmente) y subir la cobertura. Lo tengo documentado como pendiente honesto.

@@ -148,7 +148,7 @@ notes(s, "El problema real: en Chile se pierde entre 20 y 40% de la fruta post-c
 # ─────────── SLIDE 4 — PLAN DE PRUEBAS ───────────
 s = add_slide(); content_header(s, "Descripción del plan de pruebas", "Criterio 1 · IL3.1")
 bullets(s, Inches(0.7), Inches(1.5), Inches(6.0), Inches(5),
-        [("36 casos automatizados (17 backend + 19 Android)", 0),
+        [("57 casos automatizados (38 backend + 19 Android)", 0),
          ("Clasificados en 4 tipos:", 0),
          ("Validación: ¿el sistema correcto? (requisitos)", 1),
          ("Verificación: ¿correctamente? (calidad/RNF)", 1),
@@ -157,11 +157,10 @@ bullets(s, Inches(0.7), Inches(1.5), Inches(6.0), Inches(5),
          ("Cada caso: funcionalidad · acción · esperado · obtenido", 0)], size=17)
 table(s, Inches(7.0), Inches(1.7), Inches(5.7), Inches(2.5),
       ["Tipo", "Casos", "Estado"],
-      [["Validación backend", "15", "✅"],
-       ["Seguridad (OWASP)", "3", "✅"],
-       ["Validación Android", "19", "✅"],
-       ["Verificación", "6", "✅"]],
-      col_w=[2.9, 1.4, 1.4])
+      [["Estado de fruta (backend)", "21", "✅"],
+       ["Validación backend", "17", "✅"],
+       ["Validación Android", "19", "✅"]],
+      col_w=[3.1, 1.3, 1.3])
 textbox(s, Inches(7.0), Inches(4.4), Inches(5.7), Inches(0.6),
         "Base de pruebas: SQLite in-memory + fixtures + mocks", size=14, italic=True, color=GRAY)
 notes(s, "El plan de pruebas está alineado a la problemática: cada componente crítico tiene "
@@ -177,19 +176,19 @@ notes(s, "El plan de pruebas está alineado a la problemática: cada componente 
 s = add_slide(); content_header(s, "Aplicación del plan y resultados", "Criterio 2 · IL3.1")
 table(s, Inches(0.7), Inches(1.6), Inches(7.2), Inches(3),
       ["Suite", "Framework", "Pruebas", "Resultado"],
-      [["Backend FastAPI", "pytest", "17", "✅ 17/17"],
+      [["Backend FastAPI", "pytest", "38", "✅ 38/38"],
        ["Android datos", "MockK", "9", "✅ 9/9"],
        ["Android ViewModels", "JUnit", "10", "✅ 10/10"],
-       ["TOTAL", "", "36", "✅ 36/36"]],
+       ["TOTAL", "", "57", "✅ 57/57"]],
       col_w=[2.6, 1.7, 1.4, 1.5])
 bullets(s, Inches(8.2), Inches(1.6), Inches(4.4), Inches(4.5),
-        [("36/36 en verde (21/06/2026)", 0),
+        [("57/57 en verde", 0),
+         ("21 verifican estado de fruta", 1),
          ("Ejecución en CI en cada push", 0),
-         ("Calidad verificada:", 0),
-         ("mAP@50 = 0.9229", 1),
-         ("modelo 5.2 MB", 1),
-         ("APK compila, migraciones OK", 1)], size=17)
-notes(s, "Apliqué el plan y este es el resultado: 36 de 36 pruebas en verde, ejecutadas hoy. El "
+         ("Rendimiento: ~200 ms inferencia", 0),
+         ("0 errores hasta 50 concurrentes", 1),
+         ("mAP@50 = 0.9229 · 5.2 MB", 0)], size=16)
+notes(s, "Apliqué el plan y este es el resultado: 57 de 57 pruebas en verde, ejecutadas hoy. El "
          "backend con pytest, el Android con MockK y JUnit. Además agregué integración continua: un "
          "workflow que corre la suite en cada push, así ningún cambio rompe las pruebas sin que nos "
          "enteremos. En calidad: el modelo cumple el KPI con 0.92, pesa 5.2 MB y el APK compila. "
@@ -244,7 +243,7 @@ notes(s, "Profundizo en seguridad porque protege datos personales del usuario. A
 s = add_slide(); content_header(s, "Conclusión y trabajo pendiente")
 bullets(s, Inches(0.7), Inches(1.5), Inches(7.2), Inches(5),
         [("Producto funcional, probado y seguro", 0),
-         ("36/36 pruebas en verde en todos los componentes", 1),
+         ("57/57 pruebas en verde en todos los componentes", 1),
          ("15 mejoras trazables a los 5 estándares de calidad", 1),
          ("Datos personales protegidos (cifrado + hashing + JWT)", 1),
          ("Pendiente honesto:", 0),
@@ -253,9 +252,9 @@ bullets(s, Inches(0.7), Inches(1.5), Inches(7.2), Inches(5),
          ("Aprobación del plan en esta defensa", 1)], size=17)
 rect(s, Inches(8.3), Inches(1.7), Inches(4.3), Inches(3.6), GREEN)
 textbox(s, Inches(8.5), Inches(2.0), Inches(3.9), Inches(3.0),
-        "36/36\npruebas en verde\n\nmAP@50 = 0.9229\n\n15 mejoras\nverificadas",
+        "57/57\npruebas en verde\n\nmAP@50 = 0.9229\n\n15 mejoras\nverificadas",
         size=22, color=WHITE, bold=True, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-notes(s, "Para cerrar: MaduraApp es un producto funcional, probado y seguro. 36 de 36 pruebas en "
+notes(s, "Para cerrar: MaduraApp es un producto funcional, probado y seguro. 57 de 57 pruebas en "
          "verde, 15 mejoras trazables a los estándares de calidad, y datos personales protegidos. "
          "Soy honesto con lo que falta: desplegar el backend en el laboratorio AWS, automatizar las "
          "pruebas end-to-end, y obtener su aprobación del plan en esta defensa. Gracias, quedo "

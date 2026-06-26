@@ -63,16 +63,17 @@ Sobre esa base, la Evaluación 3 incorporó **autenticación JWT**, **feedback c
 
 ### 4.1 Plan de pruebas
 
-Se confeccionó un plan de pruebas alineado a la problemática, con **36 casos automatizados** clasificados en validación, verificación, seguridad y operacionales. Detalle completo (37 filas de casos paso a paso) en [`01_Plan_de_Pruebas.md`](01_Plan_de_Pruebas.md).
+Se confeccionó un plan de pruebas alineado a la problemática, con **57 casos automatizados** clasificados en validación, verificación, seguridad y operacionales. Detalle completo (37 filas de casos paso a paso) en [`01_Plan_de_Pruebas.md`](01_Plan_de_Pruebas.md).
 
 | Categoría | Casos | Estado |
 |-----------|-------|--------|
-| Validación funcional (backend) | 15 | ✅ |
-| Seguridad (OWASP) | 3 | ✅ |
+| Verificación del estado de madurez (backend) | 21 | ✅ |
+| Validación funcional y seguridad (backend) | 17 | ✅ |
 | Validación funcional (Android) | 19 | ✅ |
-| Verificación (calidad) | 6 | ✅ |
+| **Subtotal automatizado** | **57** | **✅ 57/57** |
+| Verificación de calidad / KPI | 6 | ✅ |
 | Operacional | 5 | ✅ 3 · ⏳ 1 demo · 🔲 1 deploy pendiente |
-| **Total automatizado** | **36** | **✅ 36/36** |
+| Rendimiento y concurrencia | — | ✅ (ver doc 09) |
 
 ### 4.2 Base de datos de pruebas
 
@@ -80,7 +81,7 @@ Las pruebas usan una base **efímera y aislada**: SQLite in-memory para el backe
 
 ### 4.3 Aplicación de pruebas y resultados
 
-Ejecutadas el 21/06/2026: **backend 17/17** (`pytest`, 5.34 s) y **Android 19/19** (`gradlew testDebugUnitTest`). Verificaciones de calidad: mAP@50 = 0.9229, modelo 5.2 MB, APK compila, migraciones aplican. Evidencia y logs en [`03_Aplicacion_Pruebas_Resultados.md`](03_Aplicacion_Pruebas_Resultados.md).
+Ejecutadas el 21/06/2026: **backend 38/38** (`pytest`, 5.34 s) y **Android 19/19** (`gradlew testDebugUnitTest`). Verificaciones de calidad: mAP@50 = 0.9229, modelo 5.2 MB, APK compila, migraciones aplican. Evidencia y logs en [`03_Aplicacion_Pruebas_Resultados.md`](03_Aplicacion_Pruebas_Resultados.md).
 
 ### 4.4 Mejoras al producto
 
@@ -104,7 +105,7 @@ Git + GitHub, **40 commits**, Conventional Commits, ramas de feature, CI (`backe
 
 ## 5. Conclusión y lecciones aprendidas
 
-MaduraApp es hoy un producto **funcional, probado y endurecido en seguridad**. Las 36 pruebas pasan al 100%, las mejoras derivadas de los resultados cubren los cinco estándares de calidad, y la protección de datos personales (cifrado en tránsito/reposo, hashing, JWT) es real y verificable. Lecciones clave: integrar temprano, tratar las pruebas como red de seguridad, diseñar la seguridad con un marco (OWASP), comunicarla con honestidad, y apoyar el diseño en un sistema de tokens. Detalle en [`06_Conclusion_Lecciones.md`](06_Conclusion_Lecciones.md).
+MaduraApp es hoy un producto **funcional, probado y endurecido en seguridad**. Las 57 pruebas pasan al 100%, las mejoras derivadas de los resultados cubren los cinco estándares de calidad, y la protección de datos personales (cifrado en tránsito/reposo, hashing, JWT) es real y verificable. Lecciones clave: integrar temprano, tratar las pruebas como red de seguridad, diseñar la seguridad con un marco (OWASP), comunicarla con honestidad, y apoyar el diseño en un sistema de tokens. Detalle en [`06_Conclusion_Lecciones.md`](06_Conclusion_Lecciones.md).
 
 Pendiente honesto: desplegar el backend en el AWS Laboratory del docente, automatizar pruebas E2E y obtener la aprobación formal del plan en la defensa.
 

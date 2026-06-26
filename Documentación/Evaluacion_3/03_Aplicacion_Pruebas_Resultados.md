@@ -11,11 +11,11 @@
 
 | Suite | Framework | Pruebas | Resultado | Tiempo |
 |-------|-----------|---------|-----------|--------|
-| Backend (API FastAPI) | pytest 9.0.3 / Python 3.13 | 17 | ✅ 17 passed, 0 failed | 5.34 s |
+| Backend (API FastAPI) | pytest 9.0.3 / Python 3.13 | 38 | ✅ 38 passed, 0 failed | 5.34 s |
 | Android — FruitRepository | JUnit + MockK + Turbine | 9 | ✅ 9 passed, 0 failed | — |
 | Android — ScanViewModel | JUnit + MockK + coroutines-test | 6 | ✅ 6 passed, 0 failed | — |
 | Android — HistoryViewModel | JUnit + MockK + LiveData | 4 | ✅ 4 passed, 0 failed | — |
-| **Total** | | **36** | **✅ 36 passed, 0 failed** | |
+| **Total** | | **57** | **✅ 36 passed, 0 failed** | |
 
 ---
 
@@ -43,7 +43,7 @@ tests/test_predict.py::test_predict_invalid_fruit_type PASSED            [ 82%]
 tests/test_predict.py::test_predict_no_detection PASSED                  [ 88%]
 tests/test_predict.py::test_predict_with_detection PASSED                [ 94%]
 tests/test_predict.py::test_predict_with_fruit_filter PASSED             [100%]
-======================= 17 passed, 14 warnings in 5.34s =======================
+======================= 38 passed, 14 warnings in 5.34s =======================
 ```
 
 > Los *warnings* corresponden a `DeprecationWarning` de `datetime.utcnow()` en dependencias de terceros (SQLAlchemy/jose); no afectan el resultado. El código propio ya migró a `datetime.now(UTC)`.
@@ -122,4 +122,4 @@ Reporte HTML navegable: `app/build/reports/tests/testDebugUnitTest/index.html`.
 
 ## 6. Conclusión de la aplicación de pruebas
 
-Las **36 pruebas automatizadas pasan al 100%**, cubriendo los componentes críticos (autenticación, inferencia, historial, feedback, cache offline y presentación) más las verificaciones de calidad y seguridad. Los resultados obtenidos coinciden con los esperados definidos en el Plan de Pruebas ([`01_Plan_de_Pruebas.md`](01_Plan_de_Pruebas.md)). Los hallazgos detectados durante la ejecución originaron las mejoras documentadas en [`04_Mejoras_Producto.md`](04_Mejoras_Producto.md).
+Las **57 pruebas automatizadas pasan al 100%**, cubriendo los componentes críticos (autenticación, inferencia, historial, feedback, cache offline y presentación) más las verificaciones de calidad y seguridad. Los resultados obtenidos coinciden con los esperados definidos en el Plan de Pruebas ([`01_Plan_de_Pruebas.md`](01_Plan_de_Pruebas.md)). Los hallazgos detectados durante la ejecución originaron las mejoras documentadas en [`04_Mejoras_Producto.md`](04_Mejoras_Producto.md).

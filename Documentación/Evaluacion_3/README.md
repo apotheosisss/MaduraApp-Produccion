@@ -16,20 +16,33 @@
 
 | # | Documento | Criterio rúbrica |
 |---|-----------|------------------|
-| 01 | [`01_Plan_de_Pruebas.md`](01_Plan_de_Pruebas.md) | 1 — Plan de pruebas (36 casos en tabla) |
+| 01 | [`01_Plan_de_Pruebas.md`](01_Plan_de_Pruebas.md) | 1 — Plan de pruebas (57 casos en tabla) |
 | 02 | [`02_Base_Datos_Pruebas.md`](02_Base_Datos_Pruebas.md) | 1 — Base de datos de pruebas |
 | 03 | [`03_Aplicacion_Pruebas_Resultados.md`](03_Aplicacion_Pruebas_Resultados.md) | 2 — Aplicación de pruebas de validación |
 | 04 | [`04_Mejoras_Producto.md`](04_Mejoras_Producto.md) | 3 — Mejoras al producto (5 estándares) |
 | 05 | [`05_Evidencia_Control_Versiones.md`](05_Evidencia_Control_Versiones.md) | 4 — Evidencias / control de versiones |
 | 06 | [`06_Conclusion_Lecciones.md`](06_Conclusion_Lecciones.md) | 4 — Conclusión y lecciones |
 | 08 | [`08_Deploy_AWS_LearnerLab.md`](08_Deploy_AWS_LearnerLab.md) | Configuración de servidor de producción (AWS) |
+| 09 | [`09_Pruebas_Rendimiento.md`](09_Pruebas_Rendimiento.md) | Tiempos de respuesta y concurrencia (obs. docente) |
+
+**Evidencia de pruebas:** **`Reporte_Pruebas_MaduraApp.html`** — reporte auto-contenido con las 57 pruebas.
+
+---
+
+## ✍️ Actas de avance (para firmar)
+
+- **`Acta_Avance_EP1_MaduraApp.pdf`** · **`Acta_Avance_EP2_MaduraApp.pdf`** · **`Acta_Avance_EP3_MaduraApp.pdf`**
+- Cada una con identificación, fecha, entregables y espacio para firma de **estudiante** y **docente**.
 
 ---
 
 ## 🎤 Presentación (defensa — 70%)
 
 - **`MaduraApp_Presentacion_Evaluacion3.pptx`** — 9 slides con notas de orador.
-- [`07_Guion_Defensa.md`](07_Guion_Defensa.md) — Guion, distribución de tiempo y preguntas probables con respuestas.
+- **`MaduraApp_Presentacion_Evaluacion3_GRABAR.pptx`** — versión con narración verbatim para grabar video.
+- [`07_Guion_Defensa.md`](07_Guion_Defensa.md) — Preguntas probables del Q&A en detalle.
+- **`Guion_Celular_Defensa.pdf`** — guion de bolsillo (Di / Clave / Si profundizan) para el celular.
+- **`Guion_Narracion_Grabacion.md`** — narración verbatim (teleprompter).
 
 ---
 
@@ -44,7 +57,7 @@ Reproducibles con `python _gen_informe.py` / `python _gen_ppt.py` (requiere `pyt
 
 ## ✅ Resumen de cumplimiento
 
-- **36/36 pruebas** automatizadas en verde (17 backend + 19 Android).
+- **57/57 pruebas** automatizadas en verde (38 backend + 19 Android).
 - **15 mejoras** trazables a commits, por estándar de calidad.
 - **Integración continua** (`backend_ci.yml`) ejecutando la suite en cada push.
 - Pendiente honesto: despliegue en AWS Lab y aprobación del plan en la defensa.

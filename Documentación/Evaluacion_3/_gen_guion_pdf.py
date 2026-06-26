@@ -85,8 +85,8 @@ SLIDES = [
     },
     {
         "t": "Slide 4 &middot; Plan de pruebas (~2.5 min)  [CLAVE]",
-        "di": "Vamos al plan de pruebas, el primer criterio de esta evaluaci&oacute;n. Dise&ntilde;&eacute; treinta y seis casos "
-              "de prueba automatizados: diecisiete para el backend y diecinueve para la app Android. Y los organic&eacute; "
+        "di": "Vamos al plan de pruebas, el primer criterio de esta evaluaci&oacute;n. Dise&ntilde;&eacute; cincuenta y siete casos "
+              "de prueba automatizados: treinta y ocho para el backend y diecinueve para la app Android. Y los organic&eacute; "
               "en cuatro tipos, porque no todas las pruebas verifican lo mismo. Las de validaci&oacute;n responden a la "
               "pregunta: &iquest;estoy construyendo el sistema correcto?, es decir, si cumple los requisitos. Las de "
               "verificaci&oacute;n responden: &iquest;lo estoy construyendo correctamente?, y miran calidad, como el rendimiento "
@@ -94,8 +94,9 @@ SLIDES = [
               "verifican que el sistema funcione en su entorno. Un punto importante es la base de datos de pruebas: "
               "no uso la base real, uso una base SQLite en memoria que se crea y se destruye en cada corrida; esto "
               "a&iacute;sla cada prueba, es r&aacute;pido, y no expone datos reales de usuarios.",
-        "clave": ["<b>36 casos</b> = 17 backend + 19 Android.",
+        "clave": ["<b>57 casos</b> = 38 backend + 19 Android.",
                   "Validaci&oacute;n=requisitos &middot; Verificaci&oacute;n=calidad &middot; Seguridad=OWASP &middot; Operacional=entorno.",
+                  "<b>21 casos</b> verifican el <b>estado de madurez</b> de la fruta (prioridad).",
                   "BD de pruebas: <b>SQLite en memoria</b> (a&iacute;sla, r&aacute;pido, sin datos reales)."],
         "prof": "Cada caso documenta: funcionalidad, acci&oacute;n o dato de entrada, resultado esperado y obtenido. "
                 "Ejemplos reales: pedir <font face='Courier'>/predict</font> sin token devuelve 401; un formato de "
@@ -103,13 +104,14 @@ SLIDES = [
     },
     {
         "t": "Slide 5 &middot; Aplicaci&oacute;n y resultados (~2 min)",
-        "di": "Estos son los resultados de aplicar el plan. Las treinta y seis pruebas pasan al cien por ciento; "
-              "las ejecut&eacute; hoy. El backend con pytest: diecisiete de diecisiete. La app Android con MockK y JUnit: "
+        "di": "Estos son los resultados de aplicar el plan. Las cincuenta y siete pruebas pasan al cien por ciento; "
+              "las ejecut&eacute; hoy. El backend con pytest: treinta y ocho de treinta y ocho. La app Android con MockK y JUnit: "
               "diecinueve de diecinueve. Adem&aacute;s agregu&eacute; integraci&oacute;n continua: configur&eacute; un flujo en GitHub Actions "
               "que ejecuta toda la suite cada vez que subo un cambio, as&iacute; me entero de inmediato si algo rompe una "
               "prueba y no integro c&oacute;digo defectuoso. En calidad: el modelo cumple su objetivo con cero coma noventa "
               "y dos, pesa solo cinco coma dos megabytes, y la app compila e instala sin errores.",
-        "clave": ["<b>36/36 en verde</b> (hoy).", "backend 17/17 (pytest) &middot; Android 19/19 (MockK+JUnit).",
+        "clave": ["<b>57/57 en verde</b> (hoy).", "backend 38/38 (pytest) &middot; Android 19/19 (MockK+JUnit).",
+                  "<b>Rendimiento</b>: ~200 ms inferencia &middot; 0 errores hasta 50 usuarios concurrentes.",
                   "<b>Integraci&oacute;n continua</b> en cada push.", "Modelo 0.92 &middot; 5,2 MB &middot; APK OK."],
         "prof": "El backend prueba con pytest sobre SQLite en memoria; Android usa MockK para simular la API y la "
                 "base Room, y kotlinx-coroutines-test para controlar la concurrencia de forma determinista. El CI "
@@ -151,14 +153,14 @@ SLIDES = [
     },
     {
         "t": "Slide 8 &middot; Conclusi&oacute;n (~1.5 min)  [CLAVE]",
-        "di": "Para concluir. MaduraApp es hoy un producto funcional, probado y seguro. Treinta y seis de treinta y "
-              "seis pruebas en verde, quince mejoras trazables a los est&aacute;ndares de calidad, y los datos personales "
+        "di": "Para concluir. MaduraApp es hoy un producto funcional, probado y seguro. Cincuenta y siete de cincuenta "
+              "y siete pruebas en verde, quince mejoras trazables a los est&aacute;ndares de calidad, y los datos personales "
               "protegidos con cifrado y hashing. De hecho, lo prob&eacute; en producci&oacute;n: desplegu&eacute; el backend en una "
               "instancia de AWS con Docker, y escane&eacute; un pl&aacute;tano real que diagnostic&oacute; como &oacute;ptimo correctamente. "
               "Y soy honesto con lo que queda pendiente: el despliegue, por ser un laboratorio acad&eacute;mico, es temporal; "
               "falta automatizar las pruebas de extremo a extremo, y obtener su aprobaci&oacute;n formal del plan de pruebas "
               "en esta misma defensa.",
-        "clave": ["<b>36/36</b> &middot; <b>15 mejoras</b> &middot; datos protegidos.",
+        "clave": ["<b>57/57</b> &middot; <b>15 mejoras</b> &middot; datos protegidos.",
                   "Evidencia fuerte: <b>demo real en AWS</b> (pl&aacute;tano &rarr; &Oacute;ptimo).",
                   "Pendiente honesto: E2E + aprobaci&oacute;n del plan."],
     },
@@ -222,7 +224,11 @@ QA = [
     ("&iquest;Qu&eacute; es mAP@50?",
      "Mean Average Precision con un umbral de solapamiento de 0,5; mide qu&eacute; tan bien el modelo detecta y clasifica. 0,92 es muy alta, sobre el objetivo de 0,75."),
     ("&iquest;Qu&eacute; cobertura tienen las pruebas?",
-     "Los 36 casos cubren autenticaci&oacute;n, inferencia, historial, feedback, cach&eacute; offline y la capa de presentaci&oacute;n. Hay una matriz que relaciona cada requisito con las pruebas que lo cubren."),
+     "Los 57 casos cubren autenticaci&oacute;n, inferencia, historial, feedback, cach&eacute; offline y la capa de presentaci&oacute;n. Hay una matriz que relaciona cada requisito con las pruebas que lo cubren."),
+    ("&iquest;C&oacute;mo prueban el estado de madurez de la fruta?",
+     "Con 21 casos que simulan la salida del modelo y verifican que cada detecci&oacute;n se traduzca en el estado, el color de sem&aacute;foro y la recomendaci&oacute;n correctos, m&aacute;s la l&oacute;gica de umbral y de filtro de fruta. As&iacute; pruebo la l&oacute;gica de clasificaci&oacute;n sin depender de los pesos del modelo."),
+    ("&iquest;Qu&eacute; rendimiento tiene bajo carga?",
+     "La inferencia toma ~200 ms; extremo a extremo desde Chile a AWS, ~600-700 ms con la red. Bajo concurrencia no hubo errores hasta 50 usuarios simult&aacute;neos; el cuello de botella es la CPU porque el modelo corre sin GPU. Lo med&iacute; con un script propio en un ambiente controlado."),
     ("&iquest;Qu&eacute; falta o qu&eacute; mejorar&iacute;a?",
      "Desplegar el backend de forma permanente (el lab AWS es temporal), automatizar las pruebas de extremo a extremo &mdash;hoy la c&aacute;mara se prueba manualmente&mdash; y subir la cobertura."),
     ("&iquest;Por qu&eacute; Android nativo y no multiplataforma?",

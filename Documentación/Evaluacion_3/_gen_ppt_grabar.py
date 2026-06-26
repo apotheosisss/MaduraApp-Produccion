@@ -40,8 +40,8 @@ NARRACION = [
     "califica, y puede ver su historial, incluso sin internet.",
 
     # 4 Plan de pruebas (~2m20s)
-    "Vamos al plan de pruebas, que es el primer criterio de esta evaluación. Diseñé treinta "
-    "y seis casos de prueba automatizados: diecisiete para el backend y diecinueve para la "
+    "Vamos al plan de pruebas, que es el primer criterio de esta evaluación. Diseñé cincuenta "
+    "y siete casos de prueba automatizados: treinta y ocho para el backend y diecinueve para la "
     "aplicación Android. Y los organicé en cuatro tipos, porque no todas las pruebas "
     "verifican lo mismo. "
     "Las pruebas de validación responden a la pregunta: ¿estoy construyendo el sistema "
@@ -52,15 +52,16 @@ NARRACION = [
     "Las de seguridad las basé en OWASP, que es el estándar de la industria para seguridad "
     "en aplicaciones. "
     "Y las operacionales verifican que el sistema funcione en su entorno. "
-    "En la tabla de la derecha ven el resumen: quince casos de validación en el backend, "
-    "tres de seguridad, diecinueve en Android y seis de verificación. Todos pasando. "
+    "Del lado del backend, veintiuno de esos casos verifican específicamente el estado de "
+    "madurez de la fruta: que cada detección se traduzca en el estado, color y recomendación "
+    "correctos. "
     "Un punto importante es la base de datos de pruebas: no uso la base real, uso una base "
     "SQLite en memoria que se crea y se destruye en cada corrida. Esto aísla cada prueba, "
     "es rápido, y no expone datos reales de usuarios.",
 
     # 5 Aplicacion y resultados (~1m50s)
-    "Acá están los resultados de aplicar ese plan. Las treinta y seis pruebas pasan al cien "
-    "por ciento; las ejecuté hoy. El backend con pytest: diecisiete de diecisiete. La "
+    "Acá están los resultados de aplicar ese plan. Las cincuenta y siete pruebas pasan al cien "
+    "por ciento; las ejecuté hoy. El backend con pytest: treinta y ocho de treinta y ocho. La "
     "aplicación Android con MockK y JUnit: diecinueve de diecinueve. "
     "Además agregué integración continua: configuré un flujo en GitHub Actions que ejecuta "
     "toda la suite de pruebas cada vez que subo un cambio. Así, si algo rompe una prueba, "
@@ -102,8 +103,8 @@ NARRACION = [
     "honestidad con el usuario también es parte de la calidad.",
 
     # 8 Conclusion (~1m20s)
-    "Para concluir. MaduraApp es hoy un producto funcional, probado y seguro. Treinta y "
-    "seis de treinta y seis pruebas en verde, quince mejoras trazables a los estándares de "
+    "Para concluir. MaduraApp es hoy un producto funcional, probado y seguro. Cincuenta y "
+    "siete de cincuenta y siete pruebas en verde, quince mejoras trazables a los estándares de "
     "calidad, y los datos personales protegidos con cifrado y hashing. De hecho, lo probé "
     "en producción: desplegué el backend en una instancia de AWS, con Docker y HTTPS, y "
     "escaneé un plátano real que diagnosticó como óptimo correctamente. "

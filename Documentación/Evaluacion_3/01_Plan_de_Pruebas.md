@@ -35,7 +35,7 @@ El detalle completo está en **[`02_Base_Datos_Pruebas.md`](02_Base_Datos_Prueba
 
 - **Backend:** suite `pytest` con **SQLite in-memory** (`sqlite+aiosqlite:///:memory:`) creada y destruida por test-module, aislando cada corrida. Modelo YOLO reemplazado por un `MagicMock` para no depender de pesos en CI. Datos de prueba generados por *fixtures* (`conftest.py`): usuario `testuser`, imágenes JPEG sintéticas, tokens JWT reales.
 - **Android:** suite JVM con **mocks** (MockK) de la API y del `LocalScanDataSource` (Room), `kotlinx-coroutines-test` para controlar el dispatcher y Turbine para verificar *flows*.
-- **Total de pruebas automatizadas: 36** (17 backend + 19 Android), todas en verde y ejecutadas en cada commit por CI (GitHub Actions).
+- **Total de pruebas automatizadas: 36** (38 backend + 19 Android), todas en verde y ejecutadas en cada commit por CI (GitHub Actions).
 
 ---
 
@@ -73,7 +73,25 @@ Formato: **ID · Componente · Funcionalidad a comprobar · Pre-condición · Ac
 | CP-14 | `feedback` | Registrar calificación 1–5 | Token + scan_id válido | POST `/v1/feedback` (rating 4) | HTTP 201 | HTTP 201 | ✅ |
 | CP-15 | `feedback` | Rechazar rating fuera de rango | Token válido | POST `/v1/feedback` (rating inválido) | HTTP 422 | HTTP 422 | ✅ |
 
-### 3.4 Pruebas de seguridad (Backend — OWASP)
+### 3.4 Verificación del estado de madurez de la fruta (Backend) — **prioridad**
+
+> **21 casos** (`tests/test_inference.py`) que verifican el núcleo del producto: que cada detección del modelo se traduzca en el **estado de madurez, color de semáforo y recomendación correctos**. Se simula la salida de YOLO (sin depender de los pesos) para probar la lógica de `postprocess`.
+
+| ID | Funcionalidad a comprobar | Acción / datos | Resultado esperado | Resultado obtenido | Estado |
+|----|---------------------------|----------------|--------------------|--------------------|--------|
+| CP-EM-01 | Consistencia de los mapas: 4 frutas × 3 estados | Revisar `CLASS_MAP` | 12 clases, todas con color y recomendación | OK | ✅ |
+| CP-EM-02 | Semáforo por estado | INMADURO/OPTIMO/SOBRE_MADURO | green / yellow / red | OK | ✅ |
+| CP-EM-03..14 | Estado correcto para **cada una de las 12 clases** | Detección simulada por clase | fruta + estado + color + recomendación correctos | OK (12/12) | ✅ |
+| CP-EM-15 | Elige la detección de mayor confianza | 2 detecciones en el frame | gana la de mayor confianza | OK | ✅ |
+| CP-EM-16 | Bajo umbral → sin estado | confianza < 0,55 sin filtro | `None` (no se reporta estado dudoso) | OK | ✅ |
+| CP-EM-17 | Sin detecciones → sin estado | frame vacío | `None` | OK | ✅ |
+| CP-EM-18 | Filtro de fruta ignora otras frutas | pido mango, detecto plátano | `None` (no confunde el estado) | OK | ✅ |
+| CP-EM-19 | Filtro de fruta relaja el umbral | mango con confianza 0,40 | sí reporta (umbral 0,275 con filtro) | OK | ✅ |
+| CP-EM-20 | La recomendación es específica del estado | INMADURO vs OPTIMO | recomendaciones distintas | OK | ✅ |
+
+> *(Los 12 casos por clase se ejecutan de forma parametrizada; total real de aserciones de este grupo: 21.)*
+
+### 3.4b Pruebas de seguridad (Backend — OWASP)
 
 | ID | Componente | Funcionalidad a comprobar | Pre-condición | Acción / datos | Resultado esperado | Resultado obtenido | Estado |
 |----|-----------|---------------------------|---------------|----------------|--------------------|--------------------|--------|
@@ -110,7 +128,7 @@ Formato: **ID · Componente · Funcionalidad a comprobar · Pre-condición · Ac
 | CP-36 | `HistoryViewModel` | cachedItems refleja el stream local | Repo mock con flujo | observar `cachedItems` | Emite los ítems del cache | Refleja stream | ✅ |
 | CP-37 | `HistoryViewModel` | Refresh manual pasa por Loading | ViewModel inicializado | `refresh()` | `Loading` antes del resultado | Loading | ✅ |
 
-> **Nota:** CP-01…CP-37 corresponden a las **36 pruebas automatizadas** reales (CP-18 agrupa dos aserciones de contraseña débil). Todas se ejecutan con `pytest tests/ -v` y `gradlew testDebugUnitTest` y están en verde.
+> **Nota:** CP-01…CP-37 corresponden a las **57 pruebas automatizadas** reales (CP-18 agrupa dos aserciones de contraseña débil). Todas se ejecutan con `pytest tests/ -v` y `gradlew testDebugUnitTest` y están en verde.
 
 ### 3.7 Pruebas de verificación (atributos de calidad)
 
@@ -134,6 +152,17 @@ Formato: **ID · Componente · Funcionalidad a comprobar · Pre-condición · Ac
 | OP-03 | APK compila e instala | `gradlew assembleDebug` + `adb install` | APK instalable | APK 23 MB OK | ✅ |
 | OP-04 | App alcanza el backend | Login desde dispositivo físico | Sesión iniciada | (demo defensa) | ⏳ demo |
 | OP-05 | Despliegue en AWS Lab | Deploy backend + URL pública | `/v1/health` 200 desde Internet | — | 🔲 pendiente |
+
+### 3.9 Pruebas de rendimiento y tiempos de respuesta
+
+Mediciones de **tiempos de respuesta** en ambiente controlado y de **rendimiento bajo usuarios concurrentes**, con descripción de la red y de dónde está montado el servicio. Detalle completo, metodología y resultados en **[`09_Pruebas_Rendimiento.md`](09_Pruebas_Rendimiento.md)**. Resumen:
+
+| Métrica | Resultado |
+|---------|-----------|
+| Tiempo de inferencia (`/predict`, procesamiento) | ~200 ms |
+| Latencia extremo a extremo desde Chile → AWS | ~600-700 ms (incluye RTT de red) |
+| Estabilidad bajo concurrencia | 0 errores hasta 50 usuarios simultáneos |
+| Cuello de botella | CPU durante la inferencia (sin GPU) |
 
 ---
 
@@ -164,7 +193,7 @@ Formato: **ID · Componente · Funcionalidad a comprobar · Pre-condición · Ac
 # Backend — 17 tests
 cd Producto/backend
 source .venv/Scripts/activate
-pytest tests/ -v            # → 17 passed
+pytest tests/ -v            # → 38 passed
 
 # Android — 19 tests JVM
 cd Producto/frontend
@@ -182,9 +211,10 @@ Evidencia de ejecución (logs, capturas, métricas) en **[`03_Aplicacion_Pruebas
 
 | Categoría | Casos | Estado |
 |-----------|-------|--------|
-| Validación funcional (backend) | 15 | ✅ 15/15 |
-| Seguridad (OWASP) | 3 | ✅ 3/3 |
+| Verificación del estado de madurez (backend) | 21 | ✅ 21/21 |
+| Validación funcional y seguridad (backend) | 17 | ✅ 17/17 |
 | Validación funcional (Android) | 19 | ✅ 19/19 |
-| Verificación (calidad) | 6 | ✅ 6/6 |
+| **Subtotal automatizado** | **57** | **✅ 57/57 en verde** |
+| Verificación de calidad / KPI | 6 | ✅ 6/6 |
 | Operacional | 5 | ✅ 3 · ⏳ 1 demo · 🔲 1 pendiente (deploy) |
-| **Total automatizado** | **36** | **✅ 36/36 en verde** |
+| Rendimiento y concurrencia | — | ✅ (ver [`09_Pruebas_Rendimiento.md`](09_Pruebas_Rendimiento.md)) |

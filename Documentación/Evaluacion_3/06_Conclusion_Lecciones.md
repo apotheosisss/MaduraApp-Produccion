@@ -10,7 +10,7 @@ MaduraApp alcanzó el estado de **producto funcional, probado y endurecido** en 
 
 En esta tercera evaluación el foco fue el **aseguramiento de calidad**:
 
-- Se formalizó un **plan de pruebas** de 36 casos automatizados (17 backend + 19 Android) más verificaciones de calidad y operacionales, todos en verde.
+- Se formalizó un **plan de pruebas** de 57 casos automatizados (38 backend + 19 Android) más verificaciones de calidad y operacionales, todos en verde.
 - Se aplicaron **pruebas de validación** a cada componente (autenticación, inferencia, historial, feedback, cache offline, presentación), confirmando que el sistema cumple sus requisitos funcionales.
 - Los hallazgos de las pruebas y de una **auditoría OWASP** originaron **15 mejoras** trazables a commits, abarcando los estándares de *seguridad, usabilidad, completitud, corrección y pertinencia*.
 - Se incorporó **integración continua** para sostener la calidad en el tiempo.
@@ -23,8 +23,8 @@ El resultado es un producto que no solo funciona, sino que **protege los datos p
 
 | Objetivo | Estado |
 |----------|--------|
-| Plan de pruebas alineado a la problemática | ✅ 36 casos documentados |
-| Aplicación de pruebas de validación a todos los componentes | ✅ 36/36 en verde |
+| Plan de pruebas alineado a la problemática | ✅ 57 casos documentados |
+| Aplicación de pruebas de validación a todos los componentes | ✅ 57/57 en verde |
 | Mejoras según resultados de pruebas (calidad/ética/seguridad) | ✅ 15 mejoras trazables |
 | Base de datos de pruebas documentada | ✅ SQLite in-memory + mocks |
 | Control de versiones con evidencia | ✅ Git + CI + 40 commits |

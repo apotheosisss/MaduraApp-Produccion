@@ -36,22 +36,24 @@
 
 ## Slide 4 · Plan de pruebas (~2.5 min)  [CLAVE]
 
-**Di:** Vamos al plan de pruebas, el primer criterio de esta evaluación. Diseñé treinta y seis casos de prueba automatizados: diecisiete para el backend y diecinueve para la app Android. Y los organicé en cuatro tipos, porque no todas las pruebas verifican lo mismo. Las de validación responden a la pregunta: ¿estoy construyendo el sistema correcto?, es decir, si cumple los requisitos. Las de verificación responden: ¿lo estoy construyendo correctamente?, y miran calidad, como el rendimiento o la precisión. Las de seguridad las basé en OWASP, el estándar de la industria. Y las operacionales verifican que el sistema funcione en su entorno. Un punto importante es la base de datos de pruebas: no uso la base real, uso una base SQLite en memoria que se crea y se destruye en cada corrida; esto aísla cada prueba, es rápido, y no expone datos reales de usuarios.
+**Di:** Vamos al plan de pruebas, el primer criterio de esta evaluación. Diseñé cincuenta y siete casos de prueba automatizados: treinta y ocho para el backend y diecinueve para la app Android. Y los organicé en cuatro tipos, porque no todas las pruebas verifican lo mismo. Las de validación responden a la pregunta: ¿estoy construyendo el sistema correcto?, es decir, si cumple los requisitos. Las de verificación responden: ¿lo estoy construyendo correctamente?, y miran calidad, como el rendimiento o la precisión. Las de seguridad las basé en OWASP, el estándar de la industria. Y las operacionales verifican que el sistema funcione en su entorno. Un punto importante es la base de datos de pruebas: no uso la base real, uso una base SQLite en memoria que se crea y se destruye en cada corrida; esto aísla cada prueba, es rápido, y no expone datos reales de usuarios.
 
 **Clave:**
-- **36 casos** = 17 backend + 19 Android.
+- **57 casos** = 38 backend + 19 Android.
 - Validación=requisitos · Verificación=calidad · Seguridad=OWASP · Operacional=entorno.
+- **21 casos** verifican el **estado de madurez** de la fruta (prioridad).
 - BD de pruebas: **SQLite en memoria** (aísla, rápido, sin datos reales).
 
 **Si profundizan:** Cada caso documenta: funcionalidad, acción o dato de entrada, resultado esperado y obtenido. Ejemplos reales: pedir `/predict` sin token devuelve 401; un formato de imagen no soportado devuelve 400; una contraseña débil al registrarse devuelve 422.
 
 ## Slide 5 · Aplicación y resultados (~2 min)
 
-**Di:** Estos son los resultados de aplicar el plan. Las treinta y seis pruebas pasan al cien por ciento; las ejecuté hoy. El backend con pytest: diecisiete de diecisiete. La app Android con MockK y JUnit: diecinueve de diecinueve. Además agregué integración continua: configuré un flujo en GitHub Actions que ejecuta toda la suite cada vez que subo un cambio, así me entero de inmediato si algo rompe una prueba y no integro código defectuoso. En calidad: el modelo cumple su objetivo con cero coma noventa y dos, pesa solo cinco coma dos megabytes, y la app compila e instala sin errores.
+**Di:** Estos son los resultados de aplicar el plan. Las cincuenta y siete pruebas pasan al cien por ciento; las ejecuté hoy. El backend con pytest: treinta y ocho de treinta y ocho. La app Android con MockK y JUnit: diecinueve de diecinueve. Además agregué integración continua: configuré un flujo en GitHub Actions que ejecuta toda la suite cada vez que subo un cambio, así me entero de inmediato si algo rompe una prueba y no integro código defectuoso. En calidad: el modelo cumple su objetivo con cero coma noventa y dos, pesa solo cinco coma dos megabytes, y la app compila e instala sin errores.
 
 **Clave:**
-- **36/36 en verde** (hoy).
-- backend 17/17 (pytest) · Android 19/19 (MockK+JUnit).
+- **57/57 en verde** (hoy).
+- backend 38/38 (pytest) · Android 19/19 (MockK+JUnit).
+- **Rendimiento**: ~200 ms inferencia · 0 errores hasta 50 usuarios concurrentes.
 - **Integración continua** en cada push.
 - Modelo 0.92 · 5,2 MB · APK OK.
 
@@ -79,10 +81,10 @@
 
 ## Slide 8 · Conclusión (~1.5 min)  [CLAVE]
 
-**Di:** Para concluir. MaduraApp es hoy un producto funcional, probado y seguro. Treinta y seis de treinta y seis pruebas en verde, quince mejoras trazables a los estándares de calidad, y los datos personales protegidos con cifrado y hashing. De hecho, lo probé en producción: desplegué el backend en una instancia de AWS con Docker, y escaneé un plátano real que diagnosticó como óptimo correctamente. Y soy honesto con lo que queda pendiente: el despliegue, por ser un laboratorio académico, es temporal; falta automatizar las pruebas de extremo a extremo, y obtener su aprobación formal del plan de pruebas en esta misma defensa.
+**Di:** Para concluir. MaduraApp es hoy un producto funcional, probado y seguro. Cincuenta y siete de cincuenta y siete pruebas en verde, quince mejoras trazables a los estándares de calidad, y los datos personales protegidos con cifrado y hashing. De hecho, lo probé en producción: desplegué el backend en una instancia de AWS con Docker, y escaneé un plátano real que diagnosticó como óptimo correctamente. Y soy honesto con lo que queda pendiente: el despliegue, por ser un laboratorio académico, es temporal; falta automatizar las pruebas de extremo a extremo, y obtener su aprobación formal del plan de pruebas en esta misma defensa.
 
 **Clave:**
-- **36/36** · **15 mejoras** · datos protegidos.
+- **57/57** · **15 mejoras** · datos protegidos.
 - Evidencia fuerte: **demo real en AWS** (plátano → Óptimo).
 - Pendiente honesto: E2E + aprobación del plan.
 
@@ -113,6 +115,8 @@
 - **P: ¿Qué pasa si alguien intercepta la red?** R: No ve nada útil: el tráfico va cifrado por HTTPS, y la contraseña nunca viaja ni se guarda en claro porque se hashea con bcrypt.
 - **P: ¿Cómo guardan la sesión en el teléfono de forma segura?** R: El token JWT se cifra en reposo con EncryptedSharedPreferences (AES-256) y la clave vive en el Android Keystore. Si extraen el archivo del dispositivo, no pueden leer el token.
 - **P: ¿Qué es mAP@50?** R: Mean Average Precision con un umbral de solapamiento de 0,5; mide qué tan bien el modelo detecta y clasifica. 0,92 es muy alta, sobre el objetivo de 0,75.
-- **P: ¿Qué cobertura tienen las pruebas?** R: Los 36 casos cubren autenticación, inferencia, historial, feedback, caché offline y la capa de presentación. Hay una matriz que relaciona cada requisito con las pruebas que lo cubren.
+- **P: ¿Qué cobertura tienen las pruebas?** R: Los 57 casos cubren autenticación, inferencia, historial, feedback, caché offline y la capa de presentación. Hay una matriz que relaciona cada requisito con las pruebas que lo cubren.
+- **P: ¿Cómo prueban el estado de madurez de la fruta?** R: Con 21 casos que simulan la salida del modelo y verifican que cada detección se traduzca en el estado, el color de semáforo y la recomendación correctos, más la lógica de umbral y de filtro de fruta. Así pruebo la lógica de clasificación sin depender de los pesos del modelo.
+- **P: ¿Qué rendimiento tiene bajo carga?** R: La inferencia toma ~200 ms; extremo a extremo desde Chile a AWS, ~600-700 ms con la red. Bajo concurrencia no hubo errores hasta 50 usuarios simultáneos; el cuello de botella es la CPU porque el modelo corre sin GPU. Lo medí con un script propio en un ambiente controlado.
 - **P: ¿Qué falta o qué mejoraría?** R: Desplegar el backend de forma permanente (el lab AWS es temporal), automatizar las pruebas de extremo a extremo —hoy la cámara se prueba manualmente— y subir la cobertura.
 - **P: ¿Por qué Android nativo y no multiplataforma?** R: Para aprovechar CameraX y el control fino de cámara y rendimiento; el alcance del proyecto es Android.

@@ -32,33 +32,55 @@
    <p>Estado de Avance 3 · TPY1101 · Claudio Vicente Aro Kath · 25-06-2026</p>
  </header>
  <div class="cards">
-   <div class="card"><div class="big">36</div><div class="lbl">Pruebas totales</div></div>
-   <div class="card"><div class="big">36</div><div class="lbl">Aprobadas</div></div>
+   <div class="card"><div class="big">57</div><div class="lbl">Pruebas totales</div></div>
+   <div class="card"><div class="big">57</div><div class="lbl">Aprobadas</div></div>
    <div class="card "><div class="big">0</div><div class="lbl">Fallidas</div></div>
    <div class="card"><div class="big">100%</div><div class="lbl">Éxito</div></div>
  </div>
  <div class="bar"><i></i></div>
  <p style="font-size:14px;color:#555b52;margin:0 0 8px">
-   <b>17</b> backend (pytest) · <b>19</b> Android (JUnit + MockK). Generado el 25-06-2026.
+   <b>38</b> backend (pytest) · <b>19</b> Android (JUnit + MockK). Generado el 25-06-2026.
  </p>
- <table><tr class="grp"><td colspan="3">Backend — Inferencia y health (/predict, /health) <span class="cnt">7/7</span></td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_health</td><td class="tm">0.012s</td></tr>
+ <table><tr class="grp"><td colspan="3">Backend — Verificación del estado de madurez (clase → estado/color) <span class="cnt">21/21</span></td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_class_map_cubre_4_frutas_x_3_estados</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_cada_estado_tiene_color_y_recomendacion</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_semaforo_color_por_estado</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[0-aguacate_hass-INMADURO-green]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[1-aguacate_hass-OPTIMO-yellow]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[2-aguacate_hass-SOBRE_MADURO-red]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[3-platano-INMADURO-green]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[4-platano-OPTIMO-yellow]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[5-platano-SOBRE_MADURO-red]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[6-tomate_usda-INMADURO-green]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[7-tomate_usda-OPTIMO-yellow]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[8-tomate_usda-SOBRE_MADURO-red]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[9-mango-INMADURO-green]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[10-mango-OPTIMO-yellow]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_detecta_estado_correcto[11-mango-SOBRE_MADURO-red]</td><td class="tm">0.001s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_elige_la_deteccion_de_mayor_confianza</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_bajo_umbral_devuelve_none</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_postprocess_sin_detecciones_devuelve_none</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_filtro_de_fruta_ignora_otras_frutas</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_filtro_de_fruta_relaja_el_umbral</td><td class="tm">0.000s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_recomendacion_es_especifica_del_estado</td><td class="tm">0.000s</td></tr>
+<tr class="grp"><td colspan="3">Backend — Inferencia y health (/predict, /health) <span class="cnt">7/7</span></td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_health</td><td class="tm">0.010s</td></tr>
 <tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_requires_auth</td><td class="tm">0.002s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_unsupported_format</td><td class="tm">0.209s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_invalid_fruit_type</td><td class="tm">0.005s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_no_detection</td><td class="tm">0.005s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_with_detection</td><td class="tm">0.008s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_with_fruit_filter</td><td class="tm">0.009s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_unsupported_format</td><td class="tm">0.206s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_invalid_fruit_type</td><td class="tm">0.003s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_no_detection</td><td class="tm">0.004s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_with_detection</td><td class="tm">0.007s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_predict_with_fruit_filter</td><td class="tm">0.007s</td></tr>
 <tr class="grp"><td colspan="3">Backend — Historial, autenticación y feedback <span class="cnt">10/10</span></td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_requires_auth</td><td class="tm">0.569s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_empty_for_new_user</td><td class="tm">0.248s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_after_predict</td><td class="tm">0.232s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_pagination</td><td class="tm">0.005s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_limit_validation</td><td class="tm">0.004s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_auth_register_duplicate</td><td class="tm">0.210s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_requires_auth</td><td class="tm">0.325s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_empty_for_new_user</td><td class="tm">0.236s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_after_predict</td><td class="tm">0.229s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_pagination</td><td class="tm">0.004s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_history_limit_validation</td><td class="tm">0.003s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_auth_register_duplicate</td><td class="tm">0.205s</td></tr>
 <tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_auth_register_weak_password</td><td class="tm">0.003s</td></tr>
 <tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_auth_login_wrong_password</td><td class="tm">0.203s</td></tr>
-<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_feedback_submit</td><td class="tm">0.019s</td></tr>
+<tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_feedback_submit</td><td class="tm">0.024s</td></tr>
 <tr><td class="st"><span class="ok">PASS</span></td><td class="nm">test_feedback_invalid_rating</td><td class="tm">0.005s</td></tr>
 <tr class="grp"><td colspan="3">Android — Repositorio y caché offline <span class="cnt">9/9</span></td></tr>
 <tr><td class="st"><span class="ok">PASS</span></td><td class="nm">predict NO cachea cuando el backend no detecta nada</td><td class="tm">1.584s</td></tr>
