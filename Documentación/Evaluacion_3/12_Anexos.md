@@ -33,7 +33,7 @@ Base: `/v1`. Autenticación: `Authorization: Bearer <JWT>` (salvo `/health` y re
 
 ---
 
-## B. Esquema de base de datos (DDL — PostgreSQL)
+## B. Esquema de base de datos (DDL — fiel al modelo SQLAlchemy real)
 
 ```sql
 CREATE TABLE users (
@@ -46,26 +46,31 @@ CREATE TABLE users (
 );
 
 CREATE TABLE scans (
-    id             SERIAL PRIMARY KEY,
-    user_id        VARCHAR(36) REFERENCES users(user_id),
-    fruit_type     VARCHAR(32),
-    maturity_label VARCHAR(16),
-    confidence     DOUBLE PRECISION,
-    bbox           JSON,
-    recommendation TEXT,
-    color_code     VARCHAR(8),
-    created_at     TIMESTAMPTZ DEFAULT now()
+    scan_id         VARCHAR(36) PRIMARY KEY,
+    user_token      VARCHAR(512) NOT NULL,   -- almacena el user_id (ver nota)
+    fruit_type      VARCHAR(50) NOT NULL,
+    maturity_label  VARCHAR(20) NOT NULL,
+    confidence      DOUBLE PRECISION NOT NULL,
+    bbox            JSON NOT NULL,
+    recommendation  VARCHAR(255) NOT NULL,
+    color_code      VARCHAR(10) NOT NULL,
+    created_at      TIMESTAMPTZ DEFAULT now()
 );
+CREATE INDEX ix_scans_user_token ON scans(user_token);
 
 CREATE TABLE scan_feedback (
-    id         SERIAL PRIMARY KEY,
-    scan_id    INTEGER REFERENCES scans(id),
-    user_id    VARCHAR(36),
-    rating     SMALLINT CHECK (rating BETWEEN 1 AND 5),
-    created_at TIMESTAMPTZ DEFAULT now()
+    feedback_id INTEGER PRIMARY KEY,
+    scan_id     VARCHAR(36) NOT NULL REFERENCES scans(scan_id) ON DELETE CASCADE,
+    user_id     VARCHAR(36) NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    rating      INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    created_at  TIMESTAMPTZ DEFAULT now()
 );
+CREATE INDEX ix_scan_feedback_scan_id ON scan_feedback(scan_id);
+CREATE INDEX ix_scan_feedback_user_id ON scan_feedback(user_id);
 ```
 > El esquema se gestiona con migraciones **Alembic** (`alembic upgrade head`). En dev el motor es SQLite; en prod, AWS RDS PostgreSQL.
+>
+> **Nota de integridad referencial:** `scans.user_token` almacena el `user_id` del usuario autenticado (nombre heredado de una versión previa del proyecto sin autenticación real); no está declarado como `FOREIGN KEY` a nivel de motor, a diferencia de `scan_feedback` (que sí tiene FKs con `ON DELETE CASCADE`). Hoy la integridad se garantiza a **nivel de aplicación**: el valor siempre se puebla desde el `user_id` verificado en el JWT, nunca desde un parámetro que el cliente controle. Es una mejora identificada y pendiente: agregar el `FOREIGN KEY` explícito y renombrar la columna a `user_id`.
 
 ---
 

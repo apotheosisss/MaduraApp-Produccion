@@ -73,12 +73,26 @@ Diseño, desarrollo, pruebas y despliegue de:
 
 ### Restricciones
 1. **Temporal:** desarrollo acotado al calendario de la asignatura (3 evaluaciones parciales).
-2. **Tecnológica / infraestructura:** el AWS Academy Learner Lab es un entorno **efímero** (sesiones ~4 h), **sin GPU** y con un rol IAM restringido (`LabRole`); esto condiciona el modelo de servicio cloud (ver §6).
+2. **Tecnológica / infraestructura:** el AWS Academy Learner Lab es un entorno **efímero** (sesiones ~4 h), **sin GPU** y con un rol IAM restringido (`LabRole`); esto condiciona el modelo de servicio cloud (ver §7).
 3. **Alcance del modelo:** limitado a 4 frutas climatéricas y 3 estados; otras frutas quedan fuera.
 
 ---
 
-## 5. Planificación del proyecto (Carta Gantt)
+## 5. Metodología y ciclo de vida del proyecto
+
+El proyecto adoptó una **metodología híbrida**, coherente con sus dos naturalezas: el desarrollo del modelo de inteligencia artificial y el desarrollo del software cliente-servidor.
+
+**CRISP-DM — pipeline de datos e IA:** comprensión del negocio, recolección y etiquetado de datos (31.940 imágenes), entrenamiento del YOLO26n, evaluación (mAP@50) y ajuste fino. Proporcional a los recursos disponibles (GPU gratuita de Colab/Kaggle) y a los plazos de cada evaluación parcial.
+
+**Scrum — desarrollo de software:** sprints cortos por componente (API base, integración del modelo, app Android con CameraX, historial y autenticación), con un backlog priorizado por el valor que entrega al cliente objetivo.
+
+**Ciclo de vida del proyecto — iterativo-incremental:** tres iteraciones alineadas a las evaluaciones parciales (EP1: definición del problema y diseño; EP2: producto funcional; EP3: aseguramiento de calidad y despliegue), cada una con una entrega funcional evaluable, en lugar de un único ciclo en cascada.
+
+**Patrón de arquitectura:** MVVM (Model-View-ViewModel) en la app Android y arquitectura en capas (routers → services → schemas → models) en el backend. Ambos son proporcionales al tamaño del equipo (un desarrollador), al problema (una API REST bien delimitada) y a los plazos acotados por evaluación: separan responsabilidades sin la sobrecarga de un diseño más complejo (p. ej. microservicios), que no se justifica para el alcance de este proyecto.
+
+---
+
+## 6. Planificación del proyecto (Carta Gantt)
 
 El proyecto se ejecutó en tres iteraciones alineadas a las evaluaciones parciales. Diagrama actualizado: `Documentación/diagramas/Gantt_MaduraApp_v3.*`.
 
@@ -90,7 +104,7 @@ El proyecto se ejecutó en tres iteraciones alineadas a las evaluaciones parcial
 
 ---
 
-## 6. Arquitectura tecnológica y justificación de servicios cloud
+## 7. Arquitectura tecnológica y justificación de servicios cloud
 
 **Stack:** Android nativo (Kotlin + CameraX + Room + MVVM) · FastAPI (Python 3.12 async) · YOLO26n (Ultralytics) · SQLAlchemy + Alembic · **PostgreSQL (producción) / SQLite (desarrollo)** · Docker · GitHub Actions.
 
@@ -110,7 +124,7 @@ El uso de contenedores Docker permite migrar la solución a un entorno PaaS (App
 
 ---
 
-## 7. Conceptualización y atributos de calidad
+## 8. Conceptualización y atributos de calidad
 
 El propósito de la solución es entregar un **diagnóstico de madurez objetivo, rápido, seguro y accesible**. La viabilidad técnica se soporta en los siguientes atributos de calidad:
 
@@ -122,7 +136,7 @@ El propósito de la solución es entregar un **diagnóstico de madurez objetivo,
 
 ---
 
-## 8. Estrategia de certificación y revisiones parciales
+## 9. Estrategia de certificación y revisiones parciales
 
 ### Criterios de aceptación mandatorios
 El producto se considera certificado al cumplir simultáneamente:
